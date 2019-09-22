@@ -21,7 +21,9 @@
                     <li>20. století</li>
                     <li>Současnost</li>
                 </ul>
-                <li>WIP</li>
+                <li>Základní primcip</li>
+                <li>Palivo</li>
+
             </ul>
         </section>
         <section>
@@ -109,9 +111,72 @@
         </section>
 
         <section>
+            <section data-background-image="assets/img/10582752-3x2-940x627.png" data-background-opacity="0.4">
+                <h2>Základní princip</h2>
+
+            </section>
+            <section data-background-image="https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/3caab7ab1b658c3218a521cb7a6e73c3/large.gif" data-background-opacity="0.2">
+                <h3>Zákon o zachování hybnosti</h3>
+                <hr>
+                <blockquote cite="https://cs.wikipedia.org/wiki/Z%C3%A1kon_zachov%C3%A1n%C3%AD_hybnosti">
+                    Celková hybnost izolované soustavy těles se nemění.
+                </blockquote>
+                <div style="text-align: right; width: 70%; margin: 20px auto;">- Wikipedie</div>
+            </section>
+            <section data-background-image="assets/img/raketa-model.jpg" data-background-opacity="1">
+
+            </section>
+        </section>
+
+        <section>
+            <section data-background-image="assets/img/rocketfuel.jpg" data-background-opacity="0.4">
+                <h2>Palivo</h2>
+            </section>
+            <section data-background-image="assets/img/liquid-solid-nákres.png" data-background-opacity="1">
+
+            </section>
+            <section>
+                <h2>Tuhé</h2>
+                <ul>
+                    <li>Není oddělená nádrž a spalovací komora</li>
+                    <li>Výhody</li>
+                    <ul>
+                        <li>Jednoduchá technologie</li>
+                    </ul>
+                    <li>Nevýhody</li>
+                    <ul>
+                        <li>Nedá se ovládat, vypnout</li>
+                    </ul>
+                </ul>
+                <img src="assets/img/solid-nákres.png" alt="" width="500">
+            </section>
+            <section>
+                <h2>Tekuté</h2>
+                <ul style="font-size: smaller">
+                    <li>Ovládá se pumpami</li>
+                    <li>Palivo se míchá až ve spalovací komoře</li>
+                    <li>Výhody</li>
+                    <ul>
+                        <li>Dá se ovládat</li>
+                        <li>Dá se přečerpávat</li>
+                    </ul>
+                    <li>Nevýhody</li>
+                    <ul>
+                        <li>Velmi složitý motor</li>
+                    </ul>
+                </ul>
+                <img src="assets/img/liquid-nákres.png" alt="" width="304">
+            </section>
+        </section>
+
+        <section>
             <section>
                 <h2>Zdroje</h2>
-
+                    <ul>
+                        <li> Česká Wikipedie - Raketa</li>
+                        <li> Anglická Wikipedie - Rockets, History of Rockets, Timeline of rocket and missile technology, Timeline of spaceflight </li>
+                        <li> Quora - What are the pros and cons of using solid fuel vs liquid fuel in rockets? </li>
+                    </ul>
             </section>
             <section>
                 <h2>Zdroje obrázků</h2>
@@ -150,8 +215,23 @@
                     <li>
                         https://www.nasaspaceflight.com/wp-content/uploads/2017/12/BCK_4062-1.jpg
                     </li>
+                    <li>
+                        https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/3caab7ab1b658c3218a521cb7a6e73c3/large.gif
+                    </li>
+                    <li>
+                        https://slideplayer.com/slide/10398177/35/images/19/Explosion+%28ex.+Balloon%2C+Rocket%29.jpg
+                    </li>
+                    <li>
+                        https://www.popsci.com/sites/popsci.com/files/styles/1000_1x_/public/import/2013/images/2011/12/rocketfuel.jpg?itok=G4qRsrgC
+                    </li>
+                    <li>
+                        https://i.ytimg.com/vi/JJ2DjEpbOIU/maxresdefault.jpg
+                    </li>
                 </ul>
             </section>
+        </section>
+        <section data-background-image="assets/img/maxresdefault.jpg" data-background-opacity="0.5">
+            <h2> Děkuji za pozornost </h2>
         </section>
     </div>
 </div>
@@ -161,7 +241,11 @@
         controlsTutorial: false,
         controlsLayout: 'edges',
         hash: true,
-        
+
+
+        dependencies: [
+            { src: '/assets/reveal.js/plugin/math/math.js', async: true }
+        ]
     });
 </script>
 </body>
