@@ -4,6 +4,7 @@
     <title> Talks </title>
     <link rel="stylesheet" href="/assets/reveal.js/css/reveal.css">
     <link rel="stylesheet" href="/assets/reveal.js/css/theme/black.css">
+    <link rel="stylesheet" href="/assets/styles/custom.css">
 </head>
 <body>
 <div class="reveal">
@@ -11,6 +12,21 @@
         <section>
             <h2>talks.grnscrnr.tk</h2>
             <p>The one place to keep all my reveal.js presentations.</p>
+        </section>
+        <section>
+            <section>
+                <p>All of the talks</p>
+                <p>↓</p>
+            </section>
+            <?php
+            $root=opendir("./");
+            while($filename = readdir($root)) {
+                if ($filename != "." && $filename != ".." && is_dir($filename) && file_exists($filename . "/" . "index.html")) {
+                    printf("<section data-background-iframe='/%s/' data-background-opacity='0.4'> <a href='/%s/' class='open-in-new'><img src='/assets/img/open_in_new-24px.svg' alt=''></a> </section>", $filename, $filename);
+                }
+            }
+            closedir($root);
+            ?>
         </section>
         <section>
             That's all.

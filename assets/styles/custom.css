@@ -55,3 +55,15 @@ img.inline {
   background-color: transparent !important;
   vertical-align: middle;
   margin: 0 !important; }
+
+.open-in-new img {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  transform: scale(10);
+  filter: invert(1);
+  transition-timing-function: ease-in;
+  transition-duration: 0.2s !important; }
+
+.open-in-new:hover img {
+  transform: scale(12); }
