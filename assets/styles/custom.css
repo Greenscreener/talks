@@ -45,6 +45,8 @@
     transition-duration: 0.4s; }
   .has-white-text h1, .has-white-text h2, .has-white-text h3, .has-white-text h4, .has-white-text h5, .has-white-text h6, .has-white-text span, .has-white-text li, .has-white-text p {
     color: white !important; }
+  .has-white-text .controls-arrow {
+    color: white !important; }
 
 .sources {
   font-size: medium; }
@@ -67,3 +69,9 @@ img.inline {
 
 .open-in-new:hover img {
   transform: scale(12); }
+
+.reveal {
+  font-family: "Source Serif Pro", serif; }
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  font-family: "Source Serif Pro", serif; }
