@@ -1,0 +1,145 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> Talks </title>
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="/assets/reveal.js/css/theme/moon.css">
+	<link rel="stylesheet" href="/assets/reveal.js/lib/css/monokai.css">
+	<link rel="stylesheet" href="/assets/styles/custom.css">
+	<script src="./assets/patek-logo.js"></script>
+	<style>
+		.reveal {
+			font-family: "Fira Sans", sans-serif;
+			color: white;
+		}
+
+		.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+			font-family: "Fira Code", monospace;
+		}
+		body {
+			background: #0b2a37;
+			background-color: #0b2a37;
+			color: white;
+		}
+		::selection {
+			color: #00bcd4;
+			background: white;
+			text-shadow: none;
+		}
+
+		::-moz-selection {
+			color: #00bcd4;
+			background: white;
+			text-shadow: none;
+		}
+		.reveal img {
+			border: none !important;
+		}
+	</style>
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h1 style="text-transform: none">git</h1>
+			<h5>Co to je? </h5><h5>Jak se to používá?</h5><h5>Jak to funguje?</h5>
+			<div style="font-size: large; color: #93a1a1; display: inline-flex; align-items: center;"><div><p>Jan Černohorský</p><p>Vojtěch Káně</p></div><div style="width: 1px; background-color: #93a1a1; height: 5em; margin: 1em;"></div><patek-logo title="Talks" subtitle="Pátek"></patek-logo></div>
+		</section>
+		<section>
+			<h2>Co to je?</h2>
+			<section>
+				<p>VCS - Version Control System</p>
+				<img src="./assets/img/local.png" width="400" alt="">
+			</section>
+			<section>
+				<img src="./assets/img/distributed.png" height="500" alt="">
+			</section>
+		</section>
+		<section>
+			<p>CLI vs. GUI</p>
+			<div style="display: inline-flex; align-items: center"><img src="./assets/img/git-cli.png" width="400" alt="" style="margin-right: 1em;"><img src="./assets/img/git-gui.png" width="400" alt=""></div>
+		</section>
+		<section>
+			<h2>Instalace</h2>
+			<section>
+				<h4>Linux</h4>
+				<pre><code class="hljs shell">sudo apt install git</code></pre>
+				<pre><code class="hljs shell">sudo zypper install git</code></pre>
+				<pre><code class="hljs shell">sudo yum install git</code></pre>
+				<pre><code class="hljs shell">sudo pacman -Sy git</code></pre>
+			</section>
+			<section>
+				<h4>Widličky a MASOX</h4>
+				<blockquote><a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></blockquote>
+			</section>
+		</section>
+		<section>
+			<h2>Jak se to používá</h2>
+			<section>
+				<p class="fragment">Vytvoříme repozitář</p>
+				<pre class="fragment"><code class="hljs shell" data-trim>
+						mkdir muj_uzasny_projekt
+						cd muj_uzasny_projekt
+						git init
+				</code></pre>
+				<p class="fragment">nebo stáhneme existující</p>
+				<pre class="fragment"><code class="hljs shell" data-trim>
+					git clone https://github.com/nekdo/neco
+					cd neco
+				</code></pre>
+			</section>
+			<section>
+				<p style="margin-top: 3em;">Provedeme změny</p>
+				<img src="./assets/img/changes.gif" alt="">
+			</section>
+			<section>
+				<p>Zacommitujeme</p>
+				<pre><code class="hljs shell" data-trim>
+					git add -A
+					git commit -m "Přidán seznam pečiva."
+				</code></pre>
+			</section>
+			<section>
+				<p>Pushujeme</p>
+				<pre><code class="hljs shell" data-trim>
+					git push
+				</code></pre>
+				<p>nebo</p>
+				<pre><code class="hljs shell" data-trim>
+					git push origin master
+				</code></pre>
+			</section>
+			<section>
+				<p>Zjištění stavu repozitáře kdykoliv během práce</p>
+				<pre><code class="hljs shell" data-trim>
+					git status
+				</code></pre>
+			</section>
+			<section>
+				90% činností s gitem ↑
+			</section>
+		</section>
+	</div>
+</div>
+<script src="/assets/reveal.js/js/reveal.js"></script>
+<script>
+	Reveal.initialize({
+		controlsTutorial: false,
+		controlsLayout: 'edges',
+		hash: true,
+		dependencies: [
+			{ src: '/assets/reveal.js/plugin/highlight/highlight.js', async: true },
+		]
+	});
+</script>
+</body>
+</html>
+
+
+
+<!-- Slide stash
+<section>
+	<p>Centralized vs. Distributed</p>
+	<div style="display: inline-flex; align-items: center; "><img src="./assets/img/centralized.png" height="300" alt=""  style="margin: 0 1em;"><img src="./assets/img/distributed.png" height="400" alt="" style="margin: 0 1em;"></div>
+</section>
