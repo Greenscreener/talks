@@ -69,9 +69,3 @@ img.inline {
 
 .open-in-new:hover img {
   transform: scale(12); }
-
-.reveal {
-  font-family: "Source Serif Pro", serif; }
-
-.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-  font-family: "Source Serif Pro", serif; }
