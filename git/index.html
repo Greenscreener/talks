@@ -37,13 +37,19 @@
 		.reveal img {
 			border: none !important;
 		}
+		code.inline {
+			font-size: 0.7em;
+			background-color: #272822;
+			padding: 0.3em;
+			white-space: pre;
+		}
 	</style>
 </head>
 <body>
 <div class="reveal">
 	<div class="slides">
 		<section>
-			<h1 style="text-transform: none">git</h1>
+			<h1 style="text-transform: none">git<span style="font-size: small;">(gud)</span></h1>
 			<h5>Co to je? </h5><h5>Jak se to používá?</h5><h5>Jak to funguje?</h5>
 			<div style="font-size: large; color: #93a1a1; display: inline-flex; align-items: center;"><div><p>Jan Černohorský</p><p>Vojtěch Káně</p></div><div style="width: 1px; background-color: #93a1a1; height: 5em; margin: 1em;"></div><patek-logo title="Talks" subtitle="Pátek"></patek-logo></div>
 		</section>
@@ -69,24 +75,28 @@
 				<pre><code class="hljs shell">sudo zypper install git</code></pre>
 				<pre><code class="hljs shell">sudo yum install git</code></pre>
 				<pre><code class="hljs shell">sudo pacman -Sy git</code></pre>
+				<h4>Advanced masox</h4>
+				<pre><code class="hljs shell">brew install git</code></pre>
+
 			</section>
 			<section>
 				<h4>Widličky a MASOX</h4>
 				<blockquote><a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></blockquote>
+				<p>Git Bash - chová se jako na UNIXu</p>
 			</section>
 		</section>
 		<section>
 			<h2>Jak se to používá</h2>
 			<section>
-				<p class="fragment">Vytvoříme repozitář</p>
+				<p class="">Vytvoříme repozitář</p>
 				<pre class="fragment"><code class="hljs shell" data-trim>
-						mkdir muj_uzasny_projekt
-						cd muj_uzasny_projekt
-						git init
+					mkdir muj_uzasny_projekt
+					cd muj_uzasny_projekt
+					git init
 				</code></pre>
 				<p class="fragment">nebo stáhneme existující</p>
 				<pre class="fragment"><code class="hljs shell" data-trim>
-					git clone https://github.com/nekdo/neco
+					git clone https://github.com/nekdo/neco.git
 					cd neco
 				</code></pre>
 			</section>
@@ -119,6 +129,221 @@
 			</section>
 			<section>
 				90% činností s gitem ↑
+			</section>
+		</section>
+		<section>
+			<code style="display: inline-block" class="hljs shell" data-trim>
+				git init
+			</code>
+			<section>
+				<p>
+					Vytvoří <strong>prázdný</strong> repozitář v aktuální složce
+				</p>
+			</section>
+			<section>
+				<p>
+					Můžeme
+				</p>
+				<p>
+					použít v <strong>prázdné složce</strong> a začít <strong>nový</strong> projekt
+				</p>
+				<p>
+					nebo
+				</p>
+				<p>
+					<strong>přidat</strong> git do <strong>existujícího</strong> projektu
+				</p>
+			</section>
+		</section>
+		<section>
+			<code style="display: inline-block" class="hljs shell" data-trim>
+				git clone
+			</code>
+			<section>
+				<strong>Stáhne</strong> repozitář z gitového úložiště (v internetu)
+			</section>
+			<section>
+				syntax:
+				<pre><code class="hljs shell" data-trim>
+					git clone &lt;adresa&gt; [složka]
+				</code></pre>
+				<p style="font-size: smaller">
+					adresa - např. <em>https://gitlab.com/nekdo/neco.git</em>
+				</p>
+				<p style="font-size: smaller">
+					složka - výchozí je název repozitáře
+				</p>
+			</section>
+		</section>
+		<section>
+			<h3>Autentifikace</h3>
+			<section>
+				<p>
+					SSH vs. HTTPS
+				</p>
+				<img src="./assets/img/cloneurl.gif" alt="">
+			</section>
+			<section>
+				<h3>HTTPS</h3>
+				<p>obvyklé použití: </p>
+				<p>bez autentifikace - veřejné repozitáře, <strong>read only</strong></p>
+				<br>
+				<p style="font-size: 0.7em;" class="fragment">pro autentifikaci se musí <strong>zadat jméno a heslo při každém připojení</strong></p>
+			</section>
+			<section>
+				<h3>SSH</h3>
+				<p>obvyklé použití:</p>
+				<p><strong>soukromé</strong> repozitáře, <strong>přispívání</strong></p>
+				<br>
+				<p class="fragment" style="font-size: 0.7em;">
+					nutná konfigurace: <a href="https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh">Connecting to GitHub with SSH</a>
+				</p>
+			</section>
+			<section>
+				<p>liší se adresami:</p>
+				<p>HTTPS: <code class="inline">https://github.com/nekdo/neco.git</code></p>
+				<p>SSH: <code class="inline">git@github.com:nekdo/neco.git</code></p>
+			</section>
+		</section>
+		<section>
+			<code style="display: inline-block" class="hljs shell" data-trim>
+				git remote
+			</code>
+			<section>
+				umožňuje přidělit <strong>lokálnímu</strong> repozitáři <strong>vzdálený</strong> - tzn. <strong>remote</strong>
+			</section>
+			<section>
+				<pre><code class="hljs shell" data-trim>
+					git clone add origin &lt;adresa&gt;
+				</code></pre>
+				<p>v 99% případů pouze jeden remote - <strong>origin</strong></p>
+			</section>
+			<section>
+				Více remotů:
+				<pre><code class="hljs shell" data-trim>
+					git clone add &lt;jméno&gt; &lt;adresa&gt;
+				</code></pre>
+			</section>
+		</section>
+		<section>
+			<h2>commit</h2>
+			<section>
+				<p><em>to commit, one commit, more commits</em></p>
+				<p>česky <q>spáchat</q> - nepoužívá se</p>
+			</section>
+			<section>
+				<p>je jednotka v historii</p>
+				<img src="./assets/img/local.png" alt="" width="400">
+			</section>
+			<section>
+				<h3>obsahuje:</h3>
+				<ul>
+					<li class="fragment">
+						provedené změny
+					</li>
+					<li class="fragment">
+						commit message - <span style="font-size: 0.7em;">krátký popis provedených změn</span>
+					</li>
+					<li class="fragment">
+						metadata (autor, datum, čas ...)
+					</li>
+					<li class="fragment">
+						svůj otisk - <span style="font-size: 0.7em;">sha1 hash => univerzální identifikátor</span>
+					</li>
+					<li class="fragment">
+						otisk rodiče(ů)
+					</li>
+				</ul>
+			</section>
+			<section>
+				<img src="./assets/img/commits.png" alt="">
+			</section>
+		</section>
+		<section>
+			<code style="display: inline-block" class="hljs shell" data-trim>
+				git status
+			</code>
+			<section>
+				zobrazí aktuální stav změn
+			</section>
+			<section>
+				<p style="font-size: 0.8em">když <strong>nenastaly</strong> žádné změny od posledního commitu:</p>
+				<pre><code class="hljs shell" data-trim>
+					$ git status
+					On branch master
+					Your branch is up to date with 'origin/master'.
+
+					nothing to commit, working tree clean
+				</code></pre>
+			</section>
+			<section>
+				<p>nevybrané změny: </p>
+				<img src="./assets/img/unstaged-changes.png" alt="">
+			</section>
+			<section>
+				<p>vybrané změny: </p>
+				<img src="./assets/img/staged-changes.png" alt="">
+			</section>
+		</section>
+		<section>
+			<code style="display: inline-block" class="hljs shell" data-trim>
+				git add
+			</code>
+			<section>
+				vybírá, které změny budou <strong>zahrnuty</strong> v příštím <strong>commitu</strong>
+			</section>
+			<section>
+				<p>Vybrání <strong>všech</strong> změn: </p>
+				<pre><code class="hljs shell" data-trim>
+					git add -A
+				</code></pre>
+				<p>Vybrání dle názvu souboru: </p>
+				<pre><code class="hljs shell" data-trim>
+					git add cesta/soubor [...cesta/soubor]
+				</code></pre>
+			</section>
+		</section>
+		<section>
+			<code style="display: inline-block" class="hljs shell" data-trim>
+				git commit
+			</code>
+			<section>
+				<p>vytvoří nový commit</p>
+			</section>
+			<section>
+				<p>syntax:</p>
+				<pre><code class="hljs shell" data-trim>
+					git commit -m "Přidáno pečivo."
+				</code></pre>
+			</section>
+			<section>
+				<p><em>--amend</em> upravuje předchozí commit</p>
+				<pre><code class="hljs shell" data-trim>
+					git commit --amend -m "Přidáno pečivo a taky rohlíky."
+				</code></pre>
+			</section>
+		</section>
+		<section>
+			<code style="display: inline-block" class="hljs shell" data-trim>
+				git push
+			</code>
+			<section>
+				<p>odesílá změny na remote</p>
+			</section>
+			<section>
+				<p>syntax: </p>
+				<pre><code class="hljs shell" data-trim>
+					git push origin master
+				</code></pre>
+			</section>
+			<section>
+				<pre><code class="hljs shell" data-trim>
+					git push --set-upstream origin master
+				</code></pre>
+				<p>si zapamatuje, kam změny posíláme, poté stačí</p>
+				<pre><code class="hljs shell" data-trim>
+					git push 
+				</code></pre>
 			</section>
 		</section>
 	</div>
