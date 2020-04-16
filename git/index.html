@@ -346,6 +346,197 @@
 				</code></pre>
 			</section>
 		</section>
+		<section>
+			git pull jsem nestihl ☹
+		</section>
+		<section>
+			<h2>Advanced git</h2>
+			<h3>Precautions</h3>
+			<h3>Branching</h3>
+			<h3>Merging</h3>
+			<em>Tato část bude stále poněkud technicky nepřesná, budu se snažit představit koncepty, nikoli internálie gitu.</em>
+		</section>
+		<section>
+			<h2>⚠Precautions⚠</h2>
+			<p class="fragment">git velmi dobrý v tom neztratit vaše data, <strong>ale</strong>:</p>
+			<ul>
+				<li class="fragment">stará se <strong>pouze</strong> o data, která mu náleží (simply: jsou zacommitovaná)</li>
+				<li class="fragment"><pre><code class="hljs shell">git gc</code></pre></li>
+			</ul>
+			<p class="fragment">Pak můžete volat všechny rádoby nebezpečné příkazy, jako git reset, nebo git rebase</p>
+		</section>
+		<section>
+			<h2>Branching ⸙</h2>
+			<section>
+				<blockquote>
+					Pojďme experimentovat!
+				</blockquote>
+			</section>
+			<section>
+				<p>Cyklus pull, commit, push, často funguje velmi dobře, ale jsou situace, kdy nám přivodí vrásky, jako např. paralelní vývoj fíčur.</p>
+			</section>
+			<section>
+				<p>Větvení nám umožní vytvořit si několik paralelních směrů vývoje, které se nijak neovlivňují, ale můžeme je zase sloučit, až to uznáme za vhodné. Trochu jako zkoušet nové koncepty na pískovišti, a teprve až budou fungovat, se starat o jejich začlenění.</p>
+				<p>Existují i další důvody, proč s větvemi pracovat (tzv. git workflows), ale o nich někdy jindy.</p>
+			</section>
+			<section>
+				<h3>Prakticky</h3>
+				<p>
+					Přepni na větev mojebranch
+				</p>
+				<pre><code class="hljs shell" data-trim>
+					git switch mojebranch #klasičtěji git checkout mojebranch
+				</code></pre>
+				<p>
+					Z aktuální větve vytvoř novou větev novabranch (nezapomeňme se na ni pak přepnout)
+				</p>
+				<pre><code class="hljs shell" data-trim>
+					git branch novabranch #vytvoření a přepnutí dohromady se dá též udělat přes git switch -c novabranch, nebo git checkout -b novabranch
+				</code></pre>
+				<p>
+					Zjištění aktuální větve
+				</p>
+				<pre><code class="hljs shell" data-trim>
+					git branch #nebo lze vyčíst z výpisu git status
+				</code></pre>
+			</section>
+			<section>
+				<p>Jakmile jsme na větvi, která nám vyhovuje, můžeme normálně používat pull, commit, push. Klidně můžeme chvíli dělat na jedné větvi, pak změny commitnou, přepnout se na jinou větev a tam dělat na něčem jiném. Pull, commit, push, checkout.</p>
+			</section>
+			<section>
+				<p>
+					Pokud při pushování nové branche narazíme na
+				</p>
+				<pre><code class="hljs plaintext" data-trim>
+					fatal: The current branch vetev has no upstream branch.
+					To push the current branch and set the remote as upstream, use
+
+						git push --set-upstream origin vetev
+				</code></pre>
+				<p>
+					řiďme se tím, co radí git a napoprvé použijme
+				</p>
+				<pre><code class="hljs shell" data-trim>
+					git push --set-upstream origin vetev
+				</code></pre>
+			</section>
+		</section>
+		<section>
+			<h2>Merging</h2>
+			<section>
+				<blockquote>
+					Je načase se znovu setkat.
+				</blockquote>
+			</section>
+			<section>
+				<p>Merging je opačný proces k větvení. Po té, co jsme benefitovali z izolace, kterou nám větve poskytují, bychom chtěli změny začlenit zpět.</p>
+				<p>Můžeme rozlišit 3 varianty, co a jak budeme mergovat</p>
+			</section>
+			<section style="font-size: 75%;">
+				<ul>
+					<li>
+						fast-forward
+						<ul>
+							<li>Do branche, ze které jsme se odštípli, nepřibyly žádné commity. Izolace byla, s nadsázkou, zbytečná.</li>
+						</ul>
+					</li>
+					<li>
+						non fast-forward, bez konfliktů
+						<ul>
+							<li>—||— přibyly nové commity, ale neměnili jsme stejné kusy kódu. Jupí 👍</li>
+						</ul>
+					</li>
+					<li>
+						non fast-forward, s konflikty
+						<ul>
+							<li>—||— přibyly nové commity, a měnili jsme stejné kusy kódu. Tady bude třeba ruční práce</li>
+						</ul>
+					</li>
+				</ul>
+				<p>Na následujících slidech se budu tvářit, že se jedná o úplně jiné případy, ale uvidíme, že postup je skoro stejný a odlišnostmi nás git provede.</p>
+			</section>
+			<section>
+				<h3>fast-forward</h3>
+				<p>
+					Zde není co řešit. Dokonce za nás git naši branch zamlčí, protože není (a nikdy nebyla) potřeba.
+				</p>
+				<pre><code class="hljs shell" data-trim>
+					git checkout puvodnibranch #nejprve přepneme na větev **do** které chceme změny začlenit
+					git merge odstepenavetev
+				</code></pre>
+				<p>
+					Pokud nechceme naši branch zamlčet
+				</p>
+				<pre><code class="hljs shell" data-trim>
+					git checkout puvodnibranch #nejprve přepneme na větev **do** které chceme změny začlenit
+					git merge --no-ff odstepenavetev #tím se vytvoří nový commit, který nese informace právě o naší branchi. Git nás vyzve, abychom mu napsali commmit message
+				</code></pre>
+			</section>
+			<section>
+				<h3>bez konfliktů</h3>
+				<p>
+					Tady se branch zamlčet nedá a proto musíme i vytvořit nový commit. Naštěstí to vše udělá git za nás.
+				</p>
+				<pre><code class="hljs shell" data-trim>
+					git checkout puvodnibranch #nejprve přepneme na větev **do** které chceme změny začlenit
+					git merge odstepenavetev #git nás vyzve, abychom napsali commmit message
+				</code></pre>
+			</section>
+			<section>
+				<h3>s konflikty</h3>
+				<p>
+					Tady nás čeká ruční práce. Budeme totiž muset rozhodnout, jak změny smíchat dohromady.
+				</p>
+				<pre><code class="hljs shell" data-trim>
+					git checkout puvodnibranch #nejprve přepneme na větev **do** které chceme změny začlenit
+					git merge odstepenavetev #git zabrečí, že je třeba ruční intervence
+					#vyřešení konfliktů
+					git add -A #označme konflikty za vyřešené
+					git commit #git nás vyzve, abychom napsali commmit message
+				</code></pre>
+				<p style="font-size: 65%">
+					Ono vyřešení konfliktů znamená projít konfliktní soubory (pomůže git status) a upravit je do požadovaného tvaru. Git nám v nich zanechal komentáře, co kdo dělal. Z nich musíme vyjít, konflikt vyřešit a pak je smazat. Pro tyto případy vřele doporučuju použít nějaké GUI, nebo třeba podporu v IDE.
+				</p>
+			</section>
+			<section>
+				<h3>Příklad</h3>
+				<p style="font-size: 75%">V souboru byl nejprve jen Bob. Jedna z větví přidala Alici, druhá Cecila</p>
+				<pre><code class="hljs plaintext" data-trim>
+					<<<<<<< HEAD
+					Moji kamarádi jsou: Bob, Alice
+					=======
+					Moji kamarádi jsou: Bob, Cecil
+					>>>>>>> vetev
+				</code></pre>
+				<p style="font-size: 75%">Automaticky merge nelze provést, rozumné výsledky jsou jak <em>Bob, Alice, Cecil</em>, tak <em>Bob, Cecil, Alice</em>.</p>
+				<p style="font-size: 75%">Ručné soubor upravíme třeba takto a commitneme.</p>
+				<pre><code class="hljs plaintext" data-trim>
+					Moji kamarádi jsou: Bob, Alice. Cecil
+				</code></pre>
+			</section>
+		</section>
+		<section>
+			<h2>Advanceder git</h2>
+			<section>
+				<ul>
+					<li>rebasing</li>
+					<li>stashing</li>
+					<li>resetting</li>
+					<li>advanced merging</li>
+					<li>…</li>
+				</ul>
+				<p>Ptejte se, co vás zajímá, prezentace je WIP</p>
+			</section>
+		</section>
+		<section>
+			<h2>Git internals aka advancedest git</h2>
+			<section>
+				<blockquote>
+					Jak to k sakru celé funguje a jak toho využít v náš prospěch?
+				</blockquote>
+				<p>Q&amp;A, prezentace není a nebude.</p>
+			</section>
+		</section>
 	</div>
 </div>
 <script src="/assets/reveal.js/js/reveal.js"></script>
