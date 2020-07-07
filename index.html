@@ -18,15 +18,19 @@
                 <p>All of the talks</p>
                 <p>↓</p>
             </section>
-            <?php
-            $root=opendir("./");
-            while($filename = readdir($root)) {
-                if ($filename != "." && $filename != ".." && is_dir($filename) && file_exists($filename . "/" . "index.html")) {
-                    printf("<section data-background-iframe='/%s/' data-background-opacity='0.4'> <a href='/%s/' class='open-in-new'><img src='/assets/img/open_in_new-24px.svg' alt=''></a> </section>", $filename, $filename);
-                }
-            }
-            closedir($root);
-            ?>
+			
+				<section data-background-iframe='/baroko-vs-klasicismus/' data-background-opacity='0.4'> <a href='/baroko-vs-klasicismus/' class='open-in-new'><img src='/assets/img/open_in_new-24px.svg' alt=''></a> </section>
+			
+				<section data-background-iframe='/dezertifikace/' data-background-opacity='0.4'> <a href='/dezertifikace/' class='open-in-new'><img src='/assets/img/open_in_new-24px.svg' alt=''></a> </section>
+			
+				<section data-background-iframe='/git/' data-background-opacity='0.4'> <a href='/git/' class='open-in-new'><img src='/assets/img/open_in_new-24px.svg' alt=''></a> </section>
+			
+				<section data-background-iframe='/morgantown/' data-background-opacity='0.4'> <a href='/morgantown/' class='open-in-new'><img src='/assets/img/open_in_new-24px.svg' alt=''></a> </section>
+			
+				<section data-background-iframe='/rockets/' data-background-opacity='0.4'> <a href='/rockets/' class='open-in-new'><img src='/assets/img/open_in_new-24px.svg' alt=''></a> </section>
+			
+				<section data-background-iframe='/south-american-waterfalls/' data-background-opacity='0.4'> <a href='/south-american-waterfalls/' class='open-in-new'><img src='/assets/img/open_in_new-24px.svg' alt=''></a> </section>
+			
         </section>
         <section>
             That's all.
@@ -60,6 +64,15 @@
         controlsTutorial: false,
         controlsLayout: 'edges',
         hash: false,
+
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementsByTagName('h1')[0].innerHTML = location.hostname
+    });
+</script>
+</body>
+</html>
+se,
 
     });
     document.addEventListener("DOMContentLoaded", () => {
