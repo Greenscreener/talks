@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": ".",
+	"site": "talks-gs",
+    "ignore": [
+	  ".git/**",
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
