@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <title> Polymery využívané v FDM 3D tisku </title>
+    <link rel="stylesheet" href="/assets/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="/assets/reveal.js/dist/theme/moon.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Source Sans Pro" !important;
+        }
+        p, q, li, table {
+            color: #eee8d5;
+        }
+        section > section {
+             margin-top: 2rem;
+         }
+
+        .dimbg .backgrounds {
+            filter: brightness(.6);
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section data-background="assets/fff-background.jpeg" data-background-opacity=".2">
+            <h1>Polymery využívané v FFF 3D tisku</h1>
+            <h3>Jan Černohorský</h3>
+        </section>
+        <section>
+            <h3>Technologie FFF</h3>
+            <section>
+                <q>Fused Filament Fabrication</q> = <q>výroba tavením a spojováním filmentu</q>
+                <p>metoda 3D tisku, která využívá postupného vrstvení taveného materiálu do správného tvaru</p>
+            </section>
+            <section>
+                <img src="assets/fff schematic.png" alt="">
+            </section>
+        </section>
+        <section data-background="assets/pla spool.png" data-background-opacity=".3">
+            <h2>PLA</h2>
+            <section>
+                <h3>Kyselina polymléčná</h3>
+            </section>
+            <section>
+                <img style="filter: invert()" height="500" src="assets/PLA.svg" alt="">
+            </section>
+            <section>
+                <h3>Výroba</h3>
+                <ol style="font-size: .95em">
+                    <li>Bakteriální fermentace organické hmoty (kukuřice)</li>
+                    <li>Získání kyseliny mléčné</li>
+                    <li>Polymerace kyseliny mléčné</li>
+                </ol>
+            </section>
+            <section>
+                <img src="assets/pla%20plymerisation.png" alt="">
+            </section>
+            <section>
+                <table>
+                    <tr><th>výhody</th><th>nevýhody</th></tr>
+                    <tr><td>nízká tisková teplota</td><td>nízká tepelná odolnost</td></tr>
+                    <tr><td>tvrdost</td><td>křehkost</td></tr>
+                    <tr><td>velmi nízká tepelná roztažnost</td><td>obvykle neprůhledné</td></tr>
+                    <tr><td>výroba z biomasy</td></tr>
+                </table>
+            </section>
+            <section>
+                <p>V dnešní době nejpoužívanější materiál, vhodný pro začátečníky, spolehlivý.</p>
+            </section>
+        </section>
+        <section data-background="assets/petg bottle.png" data-background-opacity=".3">
+            <h2>PET(G)</h2>
+            <section>
+                <h3>Polyethylen tereftalát</h3>
+            </section>
+            <section>
+                <img style="filter: invert()" height="500" src="assets/PET.svg" alt="">
+            </section>
+            <section>
+                <h3>Výroba</h3>
+                <p>polymerace kyseliny tereftalové a ethylenglykolu</p>
+            </section>
+            <section>
+                <img src="assets/pet%20produciton.png" height="500" alt="">
+            </section>
+            <section>
+                <p><strong>PETG</strong> má ethylenglykol nahrazený cyklohexadimetnanolem</p>
+                <p>snižuje se tak teplota tání a PETG je proto mnohem vhodnější pro tisk</p>
+            </section>
+            <section>
+                <table>
+                    <tr><th>výhody</th><th>nevýhody</th></tr>
+                    <tr><td>středně vysoká tisková teplota</td><td><q>stringing</q></td></tr>
+                    <tr><td>pevnost a pružnost</td><td>horší kvalita detailů</td></tr>
+                    <tr><td>velmi dobrá adhese vrstev</td><td>velká adhese k podložce</td></tr>
+                    <tr><td>velmi nízká tepelná roztažnost</td><td></td></tr>
+                    <tr><td>mnohem větší odolnost než u PLA</td><td></td></tr>
+                </table>
+            </section>
+        </section>
+        <section data-background="assets/abs spools.png" data-background-opacity=".5">
+            <h2>ABS</h2>
+            <section>
+                <h3>Akrylonitrilbutadienstyren</h3>
+            </section>
+            <section>
+                <img height="500" src="assets/abs.svg" alt="">
+            </section>
+            <section data-background="assets/lego.png" data-state="dimbg">
+                <p>Z ABS se vyrábí lego kostičky a figurky.</p>
+            </section>
+            <section data-background="assets/early 3d printer.png" data-state="dimbg">
+                <p>ABS byl první materiál, který se k 3D tisku začal používat, dnes už pouze vzácně</p>
+            </section>
+            <section>
+                <table>
+                    <tr><th>výhody</th><th>nevýhody</th></tr>
+                    <tr><td>velká tepelná stabilita</td><td>obtížný tisk - velmi vysoká teplota</td></tr>
+                    <tr><td>velmi pevné a pružnost <br> - ještě lepší než PETG</td><td>velký zápach při tisku</td></tr>
+                    <tr><td>velká tepelná roztažnost</td><td>deformace a odlepování od podložky</td></tr>
+                    <tr><td>lze lepit a vyhlazovat acetonem</td><td></td></tr>
+                </table>
+            </section>
+        </section>
+        <section  data-background="assets/tpu.png" data-background-opacity=".4">
+            <h2>Flexibilní filamenty</h2>
+            <section>
+                <p>Nejčastěji termoplastický polyurethan (TPU) </p>
+            </section>
+            <section>
+                <p>Hlavní výhodou je právě možnost tisku flexibilních výrobků.</p>
+                <p>Nevýhodou je velká obtížnost tisku, neboť <q>gumová</q> struna se zasekává a může se i zamotat v extrudéru</p>
+            </section>
+        </section>
+        <section>
+            <h3>Zdroje obrázků</h3>
+            <ul style="font-size: .5em">
+                <li>solway.com</li>
+                <li>prusaprinters.org</li>
+                <li>manufactur3dmag.com</li>
+                <li>Wikimedia Commons</li>
+                <li>delta-engineering.be</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Zdroje</h3>
+            <ul style="font-size: .5em">
+                <li>https://en.wikipedia.org/wiki/Polylactic_acid</li>
+                <li>https://all3dp.com/1/pla-plastic-material-polylactic-acid/</li>
+                <li>https://cs.wikipedia.org/wiki/Polyethylentereftal%C3%A1t</li>
+                <li>https://en.wikipedia.org/wiki/Acrylonitrile_butadiene_styrene</li>
+                <li>https://www.simplify3d.com/support/materials-guide/flexible/</li>
+            </ul>
+        </section>
+        <section data-background="assets/prusa-pizza.jpeg" data-state="dimbg">
+            <h2>3D tisku zdar!</h2>
+        </section>
+    </div>
+
+</div>
+<script src="/assets/reveal.js/dist/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controlsTutorial: false,
+        controlsLayout: 'edges',
+        hash: true,
+    });
+</script>
+</body>
+</html>
