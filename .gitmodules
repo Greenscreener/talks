@@ -1,3 +1,9 @@
 [submodule "assets/reveal.js"]
 	path = assets/reveal.js
 	url = https://github.com/hakimel/reveal.js
+[submodule "passwords"]
+	path = passwords
+	url = https://gitlab.com/patek-devs/passwords
+[submodule "passwords-ksp"]
+	path = passwords-ksp
+	url = https://gitlab.com/patek-devs/passwords
