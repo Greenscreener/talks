@@ -22,10 +22,6 @@
             --r-link-color-dark: #977d00;
             --r-link-color-hover: #ccaa00;
         }
-        pre.mermaid {
-            box-shadow: unset;
-            font-family: 'Fira Code' !important;
-        }
         .fragment.disappear {
             visibility: visible !important;
             opacity: 1 !important;
@@ -102,14 +98,14 @@
             </div>
         </div>
         <script src="/assets/reveal.js/dist/reveal.js"></script>
+        <script src="/assets/reveal.js/dist/"></script>
+        <script src="/assets/reveal.js/plugin/notes/notes.js"></script>
         <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            mermaid.run();
-        });
         Reveal.initialize({
             controlsTutorial: false,
             controlsLayout: 'edges',
             hash: true,
+            plugins: [RevealNotes],
 
 
             dependencies: [
