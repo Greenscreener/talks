@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <title> Hardware na ECSC2024 </title>
+        <link rel="stylesheet" href="/assets/reveal.js/dist/reveal.css">
+        <link rel="stylesheet" href="/assets/reveal.js/dist/theme/black.css">
+        <style>
+        @font-face {
+            font-family: 'ISOCPEUR';
+            src: url('assets/isocpeur.ttf')  format('truetype');
+        }
+        .reveal a:hover {
+            text-decoration: underline;
+        }
+        :root {
+            --r-heading-font: 'ISOCPEUR';
+            --r-main-font: 'DINosaur';
+            --r-background-color: #bb0500;
+            --r-heading-color: #ccaa00;
+            --r-link-color: #ccaa00;
+            --r-link-color-dark: #977d00;
+            --r-link-color-hover: #ccaa00;
+        }
+        pre.mermaid {
+            box-shadow: unset;
+            font-family: 'Fira Code' !important;
+        }
+        .fragment.disappear {
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: inline-block;
+            trainsition: width 1s ease;
+            white-space: nowrap;
+            width: 7.3em;
+        }
+        .fragment.disappear.visible {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            width: 0 !important;
+        }
+        .attribution {
+            display: inline-block;
+        }
+        .attribution a {
+            color: white;
+            display: block;
+            font-size: small;
+            text-align: right;
+        }
+        .attribution img {
+            margin-bottom: 0;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Hardware na ECSC2024</h1>
+                    <p>Slidy na <a href="https://talks.grsc.cz/hwhx2">talks.grsc.cz/hwhx2</a></p>
+                </section>
+                <section>
+                    <h1>ECSC?</h1>
+                    <section>
+                        <p class="fragment"><span class="fragment strike">European Coal and Steel Committee</span></p>
+                        <p class="fragment"><span class="fragment strike">Eurovision Cover Song Contest</span></p>
+                        <p class="fragment"><span> European Cybersecurity Challenge</span></p>
+                    </section>
+                    <section>
+                        <p>Organizuje <a href="https://www.enisa.europa.eu/">ENISA</a></p>
+                        <p style="font-size: .5em">Wooo, byrokracie!</p>
+                        <p>Česká kvalifikace je <a style="color: black; background-color: #ffff00; font-family: Arial" href="https://kybersoutez.cz">Kybersoutěž</a></p>
+                    </section>
+                    <section data-background-image="assets/czechcyberteam.jpeg"> </section>
+                </section>
+                <section>
+                    <h1>CTF?</h1>
+                    <section>
+                        <p>Capture The Flag</p>
+                        <div class="attribution">
+                            <img src="assets/turbine.webp" width=700>
+                            <a href="https://teamfortress.fandom.com/wiki/Turbine?file=Turbine_center_area_TF2.png">User Argorrath on the TF2 wiki</a>
+                        </div>
+                    </section>
+                    <section>
+                        <p><span>Jeopardy</span> <span class="fragment disappear" data-fragment-index=1> × Attack/Defence</span></p>
+                    </section>
+                    <section>
+                        <div class="attribution">
+                            <img src="assets/jeopardy.svg" width=700>
+                            <a href="https://en.wikipedia.org/wiki/Jeopardy!#/media/File:Jeopardy!_game_board_US.svg">User Kinu on Wikipedia</a>
+                        </div>
+                    </section>
+                    <section>
+                        <img src="assets/ctf diagram.svg">
+                    </section>
+                    <section>
+                        <iframe src="assets/ecsc-jeop.html" style="zoom: 1.5; transform: scale(0.666); width: 1000px; height: 500px"></iframe>
+                    </section>
+                </section>
+            </div>
+        </div>
+        <script src="/assets/reveal.js/dist/reveal.js"></script>
+        <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            mermaid.run();
+        });
+        Reveal.initialize({
+            controlsTutorial: false,
+            controlsLayout: 'edges',
+            hash: true,
+
+
+            dependencies: [
+                { src: '/assets/reveal.js/plugin/math/math.js', async: true }
+            ]
+        });
+        </script>
+    </body>
+</html>
