@@ -10,6 +10,10 @@
             font-family: 'ISOCPEUR';
             src: url('assets/isocpeur.ttf')  format('truetype');
         }
+        @font-face {
+            font-family: 'DINosaur';
+            src: url('assets/dinosaur.otf')  format('opentype');
+        }
         .reveal a:hover {
             text-decoration: underline;
         }
@@ -43,17 +47,172 @@
             display: block;
             font-size: small;
             text-align: right;
+            z-index: -1;
         }
         .attribution img {
             margin-bottom: 0;
         }
+        .fragment.grow.ecsc2022.visible {
+            transform: scale(2) translate(0, 2.5em) !important;
+        }
+
+        .challenge-modal {
+            font-family: 'Roboto';
+            font-size: 1rem;
+            background-color: #212529;
+            margin: 0 auto;
+            padding: 1em;
+            padding-top: 0;
+            border-radius: 0.5rem;
+            max-width: 600px;
+            max-height: 700px;
+            overflow-y: scroll;
+        }
+
+        .challenge-modal h1,
+        .challenge-modal h2,
+        .challenge-modal h3,
+        .challenge-modal h4,
+        .challenge-modal h5,
+        .challenge-modal h6 {
+            font-family: 'Roboto';
+            color: white;
+            text-transform: unset;
+        }
+        
+        .challenge-modal a {
+            color: #6ea8fe;
+        }
+        
+        .challenge-modal table {
+            overflow-x: scroll;
+            width: 100%;
+        }
+
+        .challenge-modal th,
+        .challenge-modal td {
+            border: 1px solid rgb(73, 80, 87);
+            border-bottom-color: rgb(73, 80, 87) !important;
+            border-collapse: collapse;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+        }
+
+        .challenge-modal tr:nth-of-type(2n) {
+            background-color: #2c3034;
+        }
+        
+        .challenge-modal .tag {
+            font-weight: bold;
+            font-size: .8em;
+            padding: 5px;
+            border-radius: 7px;
+            background-color: white;
+            color: black;
+
+        }
+
+        .challenge-modal .tag.blue {
+            color: white;
+            background-color: #007bff;
+        }
+        .challenge-modal .tag.red {
+            color: white;
+            background-color: #dc3545;
+        }
+        .challenge-modal .tag.yellow {
+            background-color: #ffc107;
+        }
+
+        .challenge-modal .tag.attachment {
+            font-weight: normal;
+            font-size: 1.2em;
+            padding: 10px;
+        }
+
+        .challenge-modal .tag.attachment:hover {
+            cursor: pointer;
+        }
+        
+        .challenge-modal div {
+            border-bottom: solid 1px rgb(73, 80, 87);
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+        
+        .challenge-modal h1 {
+            text-align: left;
+            padding-left: .5em;
+            text-transform: unset;
+        }
+
+        .challenge-modal .text {
+            text-align: left;
+            margin-top: 1em;
+            padding: 0 1em;
+        }
+        
+        .challenge-modal code {
+            color: #e83e8c;
+        }
+
+        .challenge-modal button {
+            background-color: rgb(40, 167, 69);
+            border-radius: 0 5px 5px 0;
+            border: solid 1px rgb(40, 167, 69);
+
+        }
+
+        .challenge-modal button, .challenge-modal input {
+            font-size: 1em;
+            color: white;
+            padding: 6px;
+        }
+
+        .challenge-modal input {
+            background-color: rgb(33, 37, 41);
+            border-radius: 5px 0 0 5px ;
+            border: solid 1px rgb(73, 80, 87);
+            width: 83%;
+        }
+
+        .challenge-modal input:focus-visible {
+            outline-width: 0;
+        }
+        
+        .challenge-modal input:focus {
+            box-shadow: rgba(13, 110, 253, 0.25) 0px 0px 0px 4px;
+            outline-width: 0;
+            border-color: #86b7fe;
+        }
+        
+        .challenge-modal input::placeholder {
+            color: lightgrey;
+        }
+
+        pre.terminal {
+            background-color: #222222;
+            font-size: 1rem;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+
         </style>
     </head>
     <body>
         <div class="reveal">
             <div class="slides">
+                <img style="opacity: 0.5; z-index: -5; position: relative; top: 33rem; left: -20rem; width: 7rem;" src="assets/tomato1.svg"/>
+                <img style="opacity: 0.5; z-index: -5; position: relative; top: 2rem; left: 35rem;   width: 7rem;" src="assets/tomato2.svg" />
+                <img style="opacity: 0.5; z-index: -5; position: relative; top: 32rem; left: 28rem;  width: 7rem;" src="assets/basil1.svg" />
+                <img style="opacity: 0.5; z-index: -5; position: relative; top: -2rem; left: -42rem;   width: 7rem;" src="assets/basil2.svg" />
                 <section>
-                    <h1>Hardware na ECSC2024</h1>
+                    <div style="display: flex; align-items: center">
+                        <h1>Hardware na ECSC2024</h1> <img src="assets/pizza.svg">
+                    </div>
                     <p>Slidy na <a href="https://talks.grsc.cz/hwhx2">talks.grsc.cz/hwhx2</a></p>
                 </section>
                 <section>
@@ -95,23 +254,448 @@
                         <iframe src="assets/ecsc-jeop.html" style="zoom: 1.5; transform: scale(0.666); width: 1000px; height: 500px"></iframe>
                     </section>
                 </section>
+                <section>
+                    <section>
+                        <div class="attribution">
+                            <img class="fragment grow ecsc2022" src="assets/ecsc22-board.jpeg">
+                            <a href="https://www.ankhaneko.art/event-badges-merchandise">David Bohmann @ECSC2022 (stolen from ankhaneko's site)</a>
+                        </div>
+                    </section>
+                    <section>
+                        <img src="assets/ecsc22-solder.jpeg">
+                    </section>
+                    <section>
+                        <img src="assets/ecsc22-usb.jpeg">
+                    </section>
+                    <section>
+                        <p style="background-color: white; color: black; font-family: Calibri; text-align: left; font-size: 0.7em; padding: 1em">
+                            The hardware equipment necessary to solve the
+                            hardware challenges is provided by the organizers;
+                            players <span style="font-weight: bold; text-decoration: underline">are not allowed to use any additional tool</span>
+                            to solve the hardware challenges apart from their
+                            laptops.
+                        </p>
+                        <p class="fragment">:(</p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>The Slice</h1>
+                        <div style="display: flex; align-items: center">
+                            <ul>
+                                <li>The "multitool" board</li>
+                                <li><a href="https://www.raspberrypi.com/products/rp2040/specifications/">RP2040</a></li>
+                                <li>12 GPIOs</li>
+                                <li>2 LEDs</li>
+                                <li>BOOTSEL and! RESET</li>
+                                <li>Preloaded μPython</li>
+                                <li>Do whatever you want with it</li>
+                                <li>POWER is GND || +3.3</li>
+                            </ul>
+                            <img src="assets/rp2040.svg" width="200">
+                        </div>
+                    </section>
+                    <section>
+                        <h1>The Pizza</h1>
+                        <div style="display: flex; align-items: center">
+                            <ul>
+                                <li>The target board</li>
+                                <li><a href="https://www.secube.blu5group.com/products/secube-development-kit-including-usb-cable/">SEcube by Blu5</a></li>
+                                <li>STM32F4 - ARM Cortex-M4</li>
+                                <li>MachXO2-7000 FPGA (6864 LUTs)</li>
+                                <li>USB-C for power only</li>
+                                <li>JTAG for upload only</li>
+                                <li>20 GPIOs for challenge interface</li>
+                            </ul>
+                            <img style="padding-left: 1rem" src="assets/secube.svg" width="200">
+                        </div>
+                    </section>
+                    <section>
+                        <style>
+                        #pizza-pinout td, #pizza-pinout th {
+                            text-align: center;
+                        }
+                        #pizza-pinout td:last-child, #pizza-pinout th:last-child {
+                            text-align: left;
+                        }
+                        #pizza-pinout td:first-child, #pizza-pinout th:first-child {
+                            text-align: right;
+                        }
+                        </style>
+                        <table id="pizza-pinout" style="font-size: .7em">
+                            <thead>
+                                <tr>
+                                    <th>FUNCTION</th>
+                                    <th>PIN</th>
+                                    <th>PIN</th>
+                                    <th>FUNCTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>FPGA_CLOCK</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>FPGA_RST</td>
+                                </tr>
+                                <tr>
+                                    <td>FPGA_I0</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>FPGA_O0</td>
+                                </tr>
+                                <tr>
+                                    <td>FPGA_I1</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>FPGA_O1</td>
+                                </tr>
+                                <tr>
+                                    <td>FPGA_I2</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>FPGA_O2</td>
+                                </tr>
+                                <tr>
+                                    <td>FPGA_I3</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td>FPGA_O3</td>
+                                </tr>
+                                <tr>
+                                    <td>N/A</td>
+                                    <td>11</td>
+                                    <td>12</td>
+                                    <td>SLOT_MACHINE_LEVER</td>
+                                </tr>
+                                <tr>
+                                    <td>N/A</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <td>CPU_I2C_SDA</td>
+                                    <td>15</td>
+                                    <td>16</td>
+                                    <td>CPU_I2C_SCL</td>
+                                </tr>
+                                <tr>
+                                    <td>CPU_UART_RX</td>
+                                    <td>17</td>
+                                    <td>18</td>
+                                    <td>CPU_UART_TX</td>
+                                </tr>
+                                <tr>
+                                    <td>GND</td>
+                                    <td>19</td>
+                                    <td>20</td>
+                                    <td>CPU_RST</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </section>
+                <section>
+                    <section style="display: flex; align-items: center; margin: 0 auto">
+                        <div class="challenge-modal">
+                            <div>
+                                <h1>UART to I2C</h1>
+                            </div>
+                            <div>
+                                <p>
+                                    <span class="tag blue">🌍 23 🏳️</span>
+                                    <span class="tag blue">🏛️ 21 🏳️</span>
+                                    <span class="tag red">🏆 76</span>
+                                </p>
+                                <p>
+                                    🏷️ &nbsp;<span class="tag yellow">hardware</span>
+                                </p>
+                                <p class="text">
+                                    I need a UART to I2C converter, use the slice!
+                                </p>
+                            </div>
+                            <div>
+                                <h2>📄 Attachments</h2>
+                                <p style="text-align: left"><span class="tag blue attachment">📩 BOARD.md</span></p>
+                                <p style="text-align: left"><span class="tag blue attachment">📩 SLICE_POWER.jpg</span></p>
+                            </div>
+                            <div>
+                                <h2>🏳️ Solves</h2>
+                                <table ><thead><tr><th >#</th><th >Time</th><th >User</th></tr></thead><tbody><tr><td >1</td><td >2024-10-09 10:27:59</td><td ><a href="/player/48">Team Australia</a> 🧳</td></tr><tr><td >2</td><td >2024-10-09 11:11:14</td><td ><a href="/player/70">Team Luxembourg</a></td></tr><tr><td >3</td><td >2024-10-09 11:14:00</td><td ><a href="/player/49">Team Austria</a></td></tr><tr><td >4</td><td >2024-10-09 11:22:53</td><td ><a href="/player/73">Team Poland</a></td></tr><tr><td >5</td><td >2024-10-09 11:35:56</td><td ><a href="/player/82">Team Switzerland</a></td></tr><tr><td >6</td><td >2024-10-09 11:40:31</td><td ><a href="/player/58">Team Estonia</a></td></tr><tr><td >7</td><td >2024-10-09 12:06:12</td><td ><a href="/player/55">Team Cyprus</a></td></tr><tr><td >8</td><td >2024-10-09 12:10:20</td><td ><a href="/player/75">Team Romania</a></td></tr><tr><td >9</td><td >2024-10-09 12:43:36</td><td ><a href="/player/57">Team Denmark</a></td></tr><tr><td >10</td><td >2024-10-09 13:50:52</td><td ><a href="/player/56">Team Czech Republic (Team Czech Republic)</a></td></tr><tr><td >11</td><td >2024-10-09 13:52:57</td><td ><a href="/player/74">Team Portugal</a></td></tr><tr><td >12</td><td >2024-10-09 13:54:59</td><td ><a href="/player/59">Team Finland</a></td></tr><tr><td >13</td><td >2024-10-09 14:04:55</td><td ><a href="/player/54">Team Croatia</a></td></tr><tr><td >14</td><td >2024-10-09 14:07:02</td><td ><a href="/player/78">Team Slovakia</a></td></tr><tr><td >15</td><td >2024-10-09 14:18:36</td><td ><a href="/player/68">Team Latvia</a></td></tr><tr><td >16</td><td >2024-10-09 14:20:11</td><td ><a href="/player/81">Team Sweden</a></td></tr><tr><td >17</td><td >2024-10-09 15:00:58</td><td ><a href="/player/76">Team Serbia</a></td></tr><tr><td >18</td><td >2024-10-09 15:09:44</td><td ><a href="/player/83">Team United States</a> 🧳</td></tr><tr><td >19</td><td >2024-10-09 15:09:48</td><td ><a href="/player/65">Team Ireland</a></td></tr><tr><td >20</td><td >2024-10-09 15:27:54</td><td ><a href="/player/66">Team Italy</a></td></tr><tr><td >21</td><td >2024-10-09 16:04:32</td><td ><a href="/player/51">Team Bulgaria</a></td></tr><tr><td >22</td><td >2024-10-09 16:24:35</td><td ><a href="/player/71">Team Netherlands</a></td></tr><tr><td >23</td><td >2024-10-09 17:28:19</td><td ><a href="/player/50">Team Belgium</a></td></tr></tbody></table>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <pre class="terminal">
+PGA Program version: 0x1
+Available Program version: 0x1
+Welcome to the pizza challenges
+                         _______
+                        |  ~~--.
+                        |%=@%%/
+                        |o%%%/
+                     __ |%%o/
+               _,--~~ | |(_/ ._
+            ,/'  m%%%%| |o/ /  `\.
+           /' m%%o(_)%| |/ /o%%m `\
+         /' %%@=%o%%%o|   /(_)o%%% `\
+        /  %o%%%%%=@%%|  /%%o%%@=%%  \
+       |  (_)%(_)%%o%%| /%%%=@(_)%%%  |
+       | %%o%%%%o%%%(_|/%o%%o%%%%o%%% |
+       | %%o%(_)%%%%%o%(_)%%%o%%o%o%% |
+       |  (_)%%=@%(_)%o%o%%(_)%o(_)%  |
+        \ ~%%o%%%%%o%o%=@%%o%%@%%o%~ /
+         \. ~o%%(_)%%%o%(_)%%(_)o~ ,/
+           \_ ~o%=@%(_)%o%%(_)%~ _/
+             `\_~~o%%%o%%%%%~~_/'
+                `--..____,,--'
+1. UART to I2C
+2. PIN
+3. Slot Machine
+
+>
+                        </pre>
+                        <pre class="fragment terminal">
+1
+
+SEND THESE MESSAGES VIA I2C TO THE ADDRESS 0x42 (1 MESSAGE PER LINE)
+0x88 0x11 0x93 0x13 0xB8 0xE8 0x5F
+                        </pre>
+                    </section>
+                </section>
+                <section>
+                    <section style="display: flex; align-items: center; margin: 0 auto">
+                        <div class="challenge-modal">
+                            <div>
+                                <h1>Secure PIN</h1>
+                            </div>
+                            <div>
+                                <p>
+                                    <span class="tag blue">🌍 19 🏳️</span>
+                                    <span class="tag blue">🏛️ 19 🏳️</span>
+                                    <span class="tag red">🏆 96</span>
+                                </p>
+                                <p>
+                                    🏷️ &nbsp;<span class="tag yellow">hardware</span>
+                                </p>
+                                <p class="text">
+                                    Look at my new numeric PIN protected flag, you cannot guess it!
+                                </p>
+                                <p class="text">
+                                    Note: the documentation is in the <code>UART to I2C</code> challenge
+                                </p>
+                            </div>
+                            <div>
+                                <h2>🏳️ Solves</h2>
+                                <table ><thead><tr><th >#</th><th >Time</th><th >User</th></tr></thead><tbody><tr><td >1</td><td >2024-10-09 11:00:00</td><td ><a href="/player/48">Team Australia</a> 🧳</td></tr><tr><td >2</td><td >2024-10-09 11:30:18</td><td ><a href="/player/70">Team Luxembourg</a></td></tr><tr><td >3</td><td >2024-10-09 11:55:38</td><td ><a href="/player/49">Team Austria</a></td></tr><tr><td >4</td><td >2024-10-09 13:12:12</td><td ><a href="/player/57">Team Denmark</a></td></tr><tr><td >5</td><td >2024-10-09 13:15:20</td><td ><a href="/player/76">Team Serbia</a></td></tr><tr><td >6</td><td >2024-10-09 14:13:24</td><td ><a href="/player/64">Team Iceland</a></td></tr><tr><td >7</td><td >2024-10-09 14:18:32</td><td ><a href="/player/75">Team Romania</a></td></tr><tr><td >8</td><td >2024-10-09 14:19:15</td><td ><a href="/player/55">Team Cyprus</a></td></tr><tr><td >9</td><td >2024-10-09 14:35:47</td><td ><a href="/player/50">Team Belgium</a></td></tr><tr><td >10</td><td >2024-10-09 14:47:13</td><td ><a href="/player/59">Team Finland</a></td></tr><tr><td >11</td><td >2024-10-09 14:50:13</td><td ><a href="/player/83">Team United States</a> 🧳</td></tr><tr><td >12</td><td >2024-10-09 15:00:10</td><td ><a href="/player/56">Team Czech Republic (Team Czech Republic)</a></td></tr><tr><td >13</td><td >2024-10-09 15:22:39</td><td ><a href="/player/65">Team Ireland</a></td></tr><tr><td >14</td><td >2024-10-09 16:05:27</td><td ><a href="/player/68">Team Latvia</a></td></tr><tr><td >15</td><td >2024-10-09 16:14:10</td><td ><a href="/player/81">Team Sweden</a></td></tr><tr><td >16</td><td >2024-10-09 16:17:23</td><td ><a href="/player/73">Team Poland</a></td></tr><tr><td >17</td><td >2024-10-09 16:21:37</td><td ><a href="/player/66">Team Italy</a></td></tr><tr><td >18</td><td >2024-10-09 16:24:40</td><td ><a href="/player/71">Team Netherlands</a></td></tr><tr><td >19</td><td >2024-10-09 16:58:20</td><td ><a href="/player/58">Team Estonia</a></td></tr></tbody></table>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <pre class="terminal">
+FPGA Program version: 0x1
+Available Program version: 0x1
+Welcome to the pizza challenges
+                         _______
+                        |  ~~--.
+                        |%=@%%/
+                        |o%%%/
+                     __ |%%o/
+               _,--~~ | |(_/ ._
+            ,/'  m%%%%| |o/ /  `\.
+           /' m%%o(_)%| |/ /o%%m `\
+         /' %%@=%o%%%o|   /(_)o%%% `\
+        /  %o%%%%%=@%%|  /%%o%%@=%%  \
+       |  (_)%(_)%%o%%| /%%%=@(_)%%%  |
+       | %%o%%%%o%%%(_|/%o%%o%%%%o%%% |
+       | %%o%(_)%%%%%o%(_)%%%o%%o%o%% |
+       |  (_)%%=@%(_)%o%o%%(_)%o(_)%  |
+        \ ~%%o%%%%%o%o%=@%%o%%@%%o%~ /
+         \. ~o%%(_)%%%o%(_)%%(_)o~ ,/
+           \_ ~o%=@%(_)%o%%(_)%~ _/
+             `\_~~o%%%o%%%%%~~_/'
+                `--..____,,--'
+1. UART to I2C
+2. PIN
+3. Slot Machine
+
+>
+                        </pre>
+                        <pre class="terminal fragment">
+2
+Insert PIN:
+                        </pre>
+                        <pre class="terminal fragment">
+Insert PIN: 1000
+Wrong PIN
+Insert PIN: 1001
+Wrong PIN
+                        </pre>
+                    </section>
+                    <section>
+                        <pre class="terminal">
+Insert PIN: 1000
+Wrong PIN
+Insert PIN: 1001
+Wrong PIN
+Insert PIN: 1002
+Wrong PIN
+Insert PIN: 1003
+Wrong PIN
+Insert PIN: 1004
+Wrong PIN
+Insert PIN: 1005
+Wrong PIN
+Insert PIN: 1006
+Wrong PIN
+Insert PIN: 1007
+Wrong PIN
+Insert PIN: 1008
+Wrong PIN
+Insert PIN: 1009
+Wrong PIN
+Too many retries
+                        </pre>
+                    </section>
+                </section>
+                <section>
+                    <section style="display: flex; align-items: center; margin: 0 auto">
+                        <div class="challenge-modal">
+                            <div>
+                                <h1>State Machine</h1>
+                            </div>
+                            <div>
+                                <p>
+                                    <span class="tag blue">🌍 10 🏳️</span>
+                                    <span class="tag blue">🏛️ 9 🏳️</span>
+                                    <span class="tag red">🏆 176</span>
+                                </p>
+                                <p>
+                                    🏷️ &nbsp;<span class="tag yellow">hardware</span>
+                                </p>
+                                <p class="text">
+                                    We have this FPGA programmed with a finite
+                                    state machine (FSM), it was outsourced, we
+                                    lost the documentation and we think the
+                                    contractor installed a backdoor in order to
+                                    get the FLAG.
+                                </p>
+                                <p class="text">
+                                    Note: the documentation is in the <code>UART to I2C</code> challenge
+                                </p>
+                            </div>
+                            <div>
+                                <h2>📄 Attachments</h2>
+                                <p style="text-align: left"><span class="tag blue attachment">📩 3.FSM.md</span></p>
+                                <p style="text-align: left"><span class="tag blue attachment">📩 FSM.png</span></p>
+                            </div>
+                            <div>
+                                <h2>🏳️ Solves</h2>
+                                <table ><thead><tr><th >#</th><th >Time</th><th >User</th></tr></thead><tbody><tr><td >1</td><td >2024-10-09 12:04:44</td><td ><a href="/player/48">Team Australia</a> 🧳</td></tr><tr><td >2</td><td >2024-10-09 12:11:51</td><td ><a href="/player/56">Team Czech Republic (Team Czech Republic)</a></td></tr><tr><td >3</td><td >2024-10-09 12:29:19</td><td ><a href="/player/81">Team Sweden</a></td></tr><tr><td >4</td><td >2024-10-09 14:38:58</td><td ><a href="/player/49">Team Austria</a></td></tr><tr><td >5</td><td >2024-10-09 14:59:15</td><td ><a href="/player/57">Team Denmark</a></td></tr><tr><td >6</td><td >2024-10-09 14:59:46</td><td ><a href="/player/82">Team Switzerland</a></td></tr><tr><td >7</td><td >2024-10-09 15:13:09</td><td ><a href="/player/70">Team Luxembourg</a></td></tr><tr><td >8</td><td >2024-10-09 15:54:10</td><td ><a href="/player/75">Team Romania</a></td></tr><tr><td >9</td><td >2024-10-09 17:41:29</td><td ><a href="/player/65">Team Ireland</a></td></tr><tr><td >10</td><td >2024-10-09 17:48:51</td><td ><a href="/player/66">Team Italy</a></td></tr></tbody></table>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div style="display: flex; align-items: center">
+                            <ul style="font-size: smaller; margin-right: 1em">
+                                <li>Objective: find undocumented states</li>
+                                <li>FSM.md:</li>
+                                <ol>
+                                    <li>Reach state 1111</li>
+                                    <li>This enables second FSM</li>
+                                    <li>Starts printing flag</li>
+                                </ol>
+                                <li>FSM prints flag 4 bits per clock</li>
+                                <a href="#/4/2" style="font-size: .5em">Pizza pinout slide</a>
+                            </ul>
+                            <img src="assets/FSM.png">
+                        </div>
+                    </section>
+                    <section>
+                        <a href="https://hxx.cz/cch/#recipe=Find_/_Replace(%7B'option':'Regex','string':',%7C%20%7C%5C%5C%5B%7C%5D%7C%5C%5Cn'%7D,'',true,false,true,false)From_Binary('Space',8)&input=WzAsIDEsIDAsIDBdClswLCAxLCAwLCAxXQpbMCwgMSwgMCwgMF0KWzAsIDAsIDEsIDFdClswLCAxLCAwLCAxXQpbMCwgMCwgMSwgMV0KWzAsIDEsIDAsIDBdClswLCAwLCAxLCAxXQpbMCwgMSwgMSwgMV0KWzEsIDAsIDEsIDFdClswLCAwLCAxLCAxXQpbMCwgMCwgMSwgMV0KWzAsIDEsIDEsIDFdClsxLCAwLCAwLCAwXQpbMCwgMSwgMSwgMV0KWzAsIDAsIDAsIDBdClswLCAxLCAxLCAwXQpbMSwgMSwgMCwgMF0KWzAsIDAsIDEsIDFdClswLCAwLCAwLCAwXQpbMCwgMSwgMSwgMV0KWzAsIDAsIDEsIDBdClswLCAwLCAxLCAxXQpbMCwgMCwgMSwgMV0KWzAsIDEsIDAsIDFdClsxLCAxLCAxLCAxXQpbMCwgMSwgMSwgMV0KWzAsIDEsIDAsIDBdClswLCAxLCAxLCAwXQpbMSwgMCwgMCwgMF0KWzAsIDAsIDEsIDFdClswLCAwLCAxLCAxXQpbMCwgMSwgMCwgMV0KWzEsIDEsIDEsIDFdClswLCAxLCAxLCAwXQpbMCwgMSwgMSwgMV0KWzAsIDEsIDEsIDFdClswLCAwLCAxLCAwXQpbMCwgMCwgMSwgMV0KWzAsIDEsIDAsIDBdClswLCAxLCAxLCAxXQpbMCwgMCwgMCwgMF0KWzAsIDEsIDEsIDBdClsxLCAwLCAwLCAwXQpbMCwgMSwgMSwgMV0KWzEsIDEsIDAsIDFdCg&oeol=CR">
+                            CyberChef
+                        </a>
+                    </section>
+                </section>
+                <section>
+                    <h1>Programmable Input/Output</h1>
+                    TODO
+                </section>
+                <section>
+                    <section style="display: flex; align-items: center; margin: 0 auto">
+                        <div class="challenge-modal">
+                            <div>
+                                <h1>Slot Machine</h1>
+                            </div>
+                            <div>
+                                <p>
+                                    <span class="tag blue">🌍 2 🏳️</span>
+                                    <span class="tag blue">🏛️ 1 🏳️</span>
+                                    <span class="tag red">🏆 500</span>
+                                </p>
+                                <p>
+                                    🏷️ &nbsp;<span class="tag yellow">hardware</span>
+                                </p>
+                                <p class="text">
+                                    A casino hired you to find out why some
+                                    players win the slot machine all the time.
+                                    You're given the source code of the slot
+                                    machine.
+                                </p>
+                                <p class="text">
+                                   <code>HAL_GPIO_EXTI_Callback</code> is the challback of an interrupt on the pin: <code>SLOT_MACHINE_LEVER</code>
+                                </p>
+                                <p class="text">
+                                    Note: the documentation is in the <code>UART to I2C</code> challenge
+                                </p>
+                            </div>
+                            <div>
+                                <h2>📄 Attachments</h2>
+                                <p style="text-align: left"><span class="tag blue attachment">📩 slot_machine.c</span></p>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="ECSC{...}"><button>Submit →</button>
+                            </div>
+                            <div>
+                                <h2>🏳️ Solves</h2>
+                                <table ><thead><tr><th >#</th><th >Time</th><th >User</th></tr></thead><tbody><tr><td >1</td><td >2024-10-09 15:04:14</td><td ><a href="/player/48">Team Australia</a> 🧳</td></tr><tr><td >2</td><td >2024-10-09 17:27:20</td><td ><a href="/player/57">Team Denmark</a></td></tr></tbody></table>
+                            </div>
+                        </div>
+                    </section>
+                    <section style="height: 100%">
+                        <pre style="height: 98.5%; margin: 0 auto"><code id="slot_machine">
+
+                        </code></pre>
+                    </section>
+                </section>
             </div>
         </div>
         <script src="/assets/reveal.js/dist/reveal.js"></script>
         <script src="/assets/reveal.js/dist/"></script>
         <script src="/assets/reveal.js/plugin/notes/notes.js"></script>
+        <link rel="stylesheet" href="/assets/reveal.js/plugin/highlight/monokai.css" />
+        <script src="/assets/reveal.js/plugin/highlight/highlight.js"></script>
         <script>
-        Reveal.initialize({
-            controlsTutorial: false,
-            controlsLayout: 'edges',
-            hash: true,
-            plugins: [RevealNotes],
+        (async function () {
+            await Reveal.initialize({
+                controlsTutorial: false,
+                controlsLayout: 'edges',
+                hash: true,
+                plugins: [RevealNotes, RevealHighlight],
 
 
-            dependencies: [
-                { src: '/assets/reveal.js/plugin/math/math.js', async: true }
-            ]
-        });
+                dependencies: [
+                    { src: '/assets/reveal.js/plugin/math/math.js', async: true }
+                ]
+            });
+            const slot_machine_code = await (await fetch("assets/slot_machine.c")).text()
+            const slot_machine_el = document.getElementById("slot_machine")
+            slot_machine_el.innerText = slot_machine_code
+            const highlight = Reveal.getPlugin('highlight')
+            highlight.highlightBlock(slot_machine_el, "c")
+            await Reveal.layout()
+        })();
         </script>
     </body>
 </html>
