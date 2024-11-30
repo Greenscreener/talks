@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <title>Programmable IO on the RP2040 (and RP2350)</title>
+        <link rel="stylesheet" href="/assets/reveal.js/dist/reveal.css">
+        <link rel="stylesheet" href="/assets/reveal.js/dist/theme/white.css">
+        <style>
+        .reveal a:hover {
+            text-decoration: underline;
+        }
+        :root {
+            --r-heading-font: 'Roboto Slab';
+            --r-main-font: 'Roboto';
+            --r-background-color: white;
+            --r-heading-color: black;
+            --r-link-color: #d35366;
+            --r-link-color-dark: #b33346;
+            --r-link-color-hover: #f37386;
+        }
+        code {
+            color: #b52e51;
+        }
+        .fragment.disappear {
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: inline-block;
+            trainsition: width 1s ease;
+            white-space: nowrap;
+            width: 7.3em;
+        }
+        .fragment.disappear.visible {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            width: 0 !important;
+        }
+        .attribution {
+            display: inline-block;
+        }
+        .attribution a {
+            color: white;
+            display: block;
+            font-size: small;
+            text-align: right;
+            z-index: -1;
+        }
+        .attribution img {
+            margin-bottom: 0;
+        }
+        .fragment.grow.ecsc2022.visible {
+            transform: scale(2) translate(0, 2.5em) !important;
+        }
+
+        .challenge-modal {
+            font-family: 'Roboto';
+            font-size: 1rem;
+            background-color: #212529;
+            margin: 0 auto;
+            padding: 1em;
+            padding-top: 0;
+            border-radius: 0.5rem;
+            max-width: 600px;
+            max-height: 700px;
+            overflow-y: scroll;
+        }
+
+        .reveal h1 {
+            font-family: 'Roboto';
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            text-transform: unset !important;
+        }
+
+        .challenge-modal h1,
+        .challenge-modal h2,
+        .challenge-modal h3,
+        .challenge-modal h4,
+        .challenge-modal h5,
+        .challenge-modal h6 {
+            font-family: 'Roboto';
+            color: white;
+            text-transform: unset;
+        }
+        
+        .challenge-modal a {
+            color: #6ea8fe;
+        }
+        
+        .challenge-modal table {
+            overflow-x: scroll;
+            width: 100%;
+        }
+
+        .challenge-modal th,
+        .challenge-modal td {
+            border: 1px solid rgb(73, 80, 87);
+            border-bottom-color: rgb(73, 80, 87) !important;
+            border-collapse: collapse;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+        }
+
+        .challenge-modal tr:nth-of-type(2n) {
+            background-color: #2c3034;
+        }
+        
+        .challenge-modal .tag {
+            font-weight: bold;
+            font-size: .8em;
+            padding: 5px;
+            border-radius: 7px;
+            background-color: white;
+            color: black;
+
+        }
+
+        .challenge-modal .tag.blue {
+            color: white;
+            background-color: #007bff;
+        }
+        .challenge-modal .tag.red {
+            color: white;
+            background-color: #dc3545;
+        }
+        .challenge-modal .tag.yellow {
+            background-color: #ffc107;
+        }
+
+        .challenge-modal .tag.attachment {
+            font-weight: normal;
+            font-size: 1.2em;
+            padding: 10px;
+        }
+
+        .challenge-modal .tag.attachment:hover {
+            cursor: pointer;
+        }
+        
+        .challenge-modal div {
+            border-bottom: solid 1px rgb(73, 80, 87);
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+        
+        .challenge-modal h1 {
+            text-align: left;
+            padding-left: .5em;
+            text-transform: unset;
+            
+        }
+
+        .challenge-modal .text {
+            text-align: left;
+            margin-top: 1em;
+            padding: 0 1em;
+        }
+        
+        .challenge-modal code {
+            color: #e83e8c;
+        }
+
+        .challenge-modal button {
+            background-color: rgb(40, 167, 69);
+            border-radius: 0 5px 5px 0;
+            border: solid 1px rgb(40, 167, 69);
+
+        }
+
+        .challenge-modal button, .challenge-modal input {
+            font-size: 1em;
+            color: white;
+            padding: 6px;
+        }
+
+        .challenge-modal input {
+            background-color: rgb(33, 37, 41);
+            border-radius: 5px 0 0 5px ;
+            border: solid 1px rgb(73, 80, 87);
+            width: 83%;
+        }
+
+        .challenge-modal input:focus-visible {
+            outline-width: 0;
+        }
+        
+        .challenge-modal input:focus {
+            box-shadow: rgba(13, 110, 253, 0.25) 0px 0px 0px 4px;
+            outline-width: 0;
+            border-color: #86b7fe;
+        }
+        
+        .challenge-modal input::placeholder {
+            color: lightgrey;
+        }
+
+        pre.terminal {
+            background-color: #222222;
+            font-size: 1rem;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .slides {
+            border: solid 10px var(--r-link-color);
+            border-left-width: 0;
+            border-right-width: 0;
+            margin: 5em 0;
+        }
+
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Programmable IO on the RP2040 (and RP2350)</h1>
+                </section>
+                <section>
+                    <section>
+                        <h2>Why?</h2>
+                        IO is hard.
+                    </section>
+                    <section>
+                        <h2>IO is hard</h2>
+                        <ul>
+                            <li>Timing is important</li>
+                            <li>We have to simple work with regular intervals</li>
+                            <li>Transmitting a lot of data requires a lot of CPU</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Existing solutions</h2>
+                    </section>
+                    <section>
+                        <h2>Busywaiting</h2>
+                        <pre><code>
+gpio_put(PIN_SCL, true);
+delay(100);
+gpio_put(PIN_SDA, true);
+delay(100);
+gpio_put(PIN_SCL, false);
+delay(100);
+gpio_put(PIN_SDA, false);
+delay(100);
+                        </code></pre>
+                        <ul class="fragment">
+                            <li>can't do anything else</li>
+                            <li>pipeline ⇒ 1 clock ≠ 1 instruction</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Interrupts</h2>
+                        <pre><code>
+bool state = ON;
+int handler() {
+    gpio_put(PIN_SCL, state);
+    state = !state;
+}
+int main() {
+    struct repeating_timer timer;
+    add_repeating_timer_ms(100, handler, NULL, &timer);
+}
+                        </code></pre>
+                        <ul class="fragment">
+                            <li>interrupt handling has overhead</li>
+                            <li>pipeline ⇒ 1 clock ≠ 1 instruction</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Hardware support</h2>
+                        <ul>
+                            <li>dedicated parts of the chip</li>
+                            <li>separate clock</li>
+                            <li>direct memory access</li>
+                        </ul>
+                        <br>
+                        <br>
+                        <ul class="fragment">
+                            <li>can clock faster</li>
+                            <li>cpu is free</li>
+                            <li>limited amount of buses</li>
+                            <li>limited amount of protocols</li>
+                            <li>increases complexity</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>FPGA</h2>
+                        <ul>
+                            <li>Field Programmable Gate Array</li>
+                            <li>programmable array of logic gates</li>
+                        </ul>
+                        <br>
+                        <br>
+                        <ul class="fragment">
+                            <li>can clock faster</li>
+                            <li>incredibly fast</li>
+                            <li>hard to program</li>
+                            <li>expensive</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Programmable IO!</h2>
+                        <ul>
+                            <li>9 instructions</li>
+                            <li>1 clock = 1 instruction</li>
+                            <li>clever interface to CPU</li>
+                            <li>SIMD (kinda)</li>
+                            <li>IO mapping</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <img src="assets/pio bus.svg" style="width: 45rem; margin-bottom: 0">
+                        <p style="font-size: 0.5em; margin-top: 0">RP2040 × 2, RP2350 × 3</p>
+                    </section>
+                    <section>
+                        <img src="assets/pio arch.svg" style="width: 40rem;">
+                    </section>
+                    <section>
+                        <pre>
+.program squarewave
+    set pindirs, 1
+again:
+    set pins, 1 [1]
+    set pins, 0
+    jmp again
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>Clock Divider</h2>
+                        <div style="display: flex; flex-direction: column; align-items: center">
+                            <img src="assets/pio clock 1.svg" style="max-width: 100%; width: 40rem">
+                            <img src="assets/pio clock 2.svg" style="max-width: 100%; width: 40rem" class="fragment">
+                            <img src="assets/pio clock 3.svg" style="max-width: 100%; width: 40rem" class="fragment">
+                        </div>
+                    </section>
+                    <section>
+                        <div style="display: flex; flex-direction: column">
+                            <img src="assets/pio isr.svg" style="max-width: 100%">
+                            <img src="assets/pio osr.svg" style="max-width: 100%">
+                        </div>
+                        <p style="font-size: 0.5em">+ autopush & autopull</p>
+                    </section>
+                    <section>
+                        <h2>Pin Mapping</h2>
+                        <ul>
+                            <li>up to 32 pins</li>
+                            <li>start + count</li>
+                            <li>count at assembly, start at init</li>
+                        </ul>
+                        <pre>
+.program auto_push_pull
+
+.wrap_target
+    out x, 32
+    in x, 32
+.wrap
+                        </pre>
+                    </section>
+                    <section>
+                        <img src="assets/pio asm.svg" style="max-width: 100%; width: 100%">
+                    </section>
+                    <section>
+                        <ul style="font-size: smaller">
+                            <li>000: (no condition): Always</li>
+                            <li>001: <code>!X</code>: scratch X zero</li>
+                            <li>010: <code>X--</code>: scratch X non-zero, prior to decrement</li>
+                            <li>011: <code>!Y</code>: scratch Y zero</li>
+                            <li>100: <code>Y--</code>: scratch Y non-zero, prior to decrement</li>
+                            <li>101: <code>X!=Y</code>: scratch X not equal scratch Y</li>
+                            <li>110: <code>PIN</code>: branch on input pin</li>
+                            <li>111: <code>!OSRE</code>: output shift register not empty</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Side-set</h2>
+                        <pre>
+.program spi_tx_fast
+.side_set 1
+
+loop:
+    out pins, 1     side 0
+    jmp loop        side 1
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>More!</h2>
+                        <ul>
+                            <li><code>MOV EXEC</code> & <code>OUT EXEC</code></li>
+                            <li>pin mapping is separate for <code>OUT</code>, <code>SET</code>, <code>IN</code> and for side-setting</li>
+                            <li>...</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <pre style="font-size: 0.4em">
+.program addition
+
+; Pop two 32 bit integers from the TX FIFO, add them together, and push the
+; result to the TX FIFO. Autopush/pull should be disabled as we're using
+; explicit push and pull instructions.
+;
+; This program uses the two's complement identity x + y == ~(~x - y)
+
+	pull
+	mov x, ~osr
+	pull
+	mov y, osr
+	jmp test        ; this loop is equivalent to the following C code:
+incr:               ; while (y--)
+	jmp x-- test    ;     x--;
+test:               ; This has the effect of subtracting y from x, eventually.
+	jmp y-- incr
+	mov isr, ~x
+	push
+                    </pre>
+                </section>
+                <section>
+                    <h2>Furhter reading</h2>
+                    <ul>
+                        <li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040</a>, <a href="https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf">RP2350</a> datasheets</li>
+                        <li><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C/C++ SDK</a> docs</li>
+                        <li><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-python-sdk.pdf">μPython SDK</a> docs</li>
+                        <li><a href="https://github.com/Greenscreener/talks/tree/master/hwhx2">Presentation source</a> (inc. all scripts)</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+        <script src="/assets/reveal.js/dist/reveal.js"></script>
+        <script src="/assets/reveal.js/dist/"></script>
+        <script src="/assets/reveal.js/plugin/notes/notes.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/highlightjs@9.16.2/styles/magula.css" />
+        <script src="/assets/reveal.js/plugin/highlight/highlight.js"></script>
+        <script>
+        (async function () {
+            await Reveal.initialize({
+                controlsTutorial: false,
+                controlsLayout: 'edges',
+                hash: true,
+                plugins: [RevealNotes, RevealHighlight],
+
+
+                dependencies: [
+                    { src: '/assets/reveal.js/plugin/math/math.js', async: true }
+                ]
+            });
+            await Reveal.layout()
+        })();
+        </script>
+    </body>
+</html>

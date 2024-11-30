@@ -226,6 +226,7 @@
                         <p>Organizuje <a href="https://www.enisa.europa.eu/">ENISA</a></p>
                         <p style="font-size: .5em">Wooo, byrokracie!</p>
                         <p>Česká kvalifikace je <a style="color: black; background-color: #ffff00; font-family: Arial" href="https://kybersoutez.cz">Kybersoutěž</a></p>
+                        <p>Existuje <a href="https://open.ecsc2024.it/">OpenECSC</a> (každý rok jiné)</p>
                     </section>
                     <section data-background-image="assets/czechcyberteam.jpeg"> </section>
                 </section>
@@ -619,10 +620,6 @@ Too many retries
                     </section>
                 </section>
                 <section>
-                    <h1>Programmable Input/Output</h1>
-                    TODO
-                </section>
-                <section>
                     <section style="display: flex; align-items: center; margin: 0 auto">
                         <div class="challenge-modal">
                             <div>
@@ -669,6 +666,30 @@ Too many retries
                         </code></pre>
                     </section>
                 </section>
+                <section>
+                    <div style="display: flex; justify-content: center">
+                            <div style="display: flex; flex-direction: column; align-items: stretch; width: 80%">
+                                <div style="background-color: white; color: black; font-family: 'Arial'; font-weight: bold">I lied, I didn't solve the last challenge</div>
+                                <img style="margin: 0; max-width: 100%;" src="assets/ilied.png">
+                                <div style="background-color: white; color: black; font-family: 'Arial'; font-weight: bold">Take your shoes off, we're learning about the RP2040's Programmable Input Output</div>
+                            </div>
+                    </div>
+                </section>
+                <section data-background-color="white" id="pio">
+                    
+                </section>
+                <section>
+                    <h2>Furhter reading</h2>
+                    <ul>
+                        <li><a href="https://github.com/ECSC2024">ECSC2024 GitHub</a> (all challs, inc. HW and AD)</li>
+                        <li><a href="https://github.com/ECSC2024/ECSC2024-CTF-Jeopardy/blob/main/hardware04/writeup.md">Slot machine official writeup</a></li>
+                        <li><a href="https://bolt.curious.supplies">Curious Bolt</a> (limited edition inc. ECSC2023 chal)</li>
+                        <li><a href="pio.html">The other presentation</a></li>
+                        <li><a href="https://kybersoutez.cz">Kybersoutěž</a></li>
+                        <li><a href="https://open.ecsc2024.it">OpenECSC 2024</a></li>
+                        <li><a href="https://github.com/Greenscreener/talks/tree/master/hwhx2">Presentation source</a> (inc. all scripts)</li>
+                    </ul>
+                </section>
             </div>
         </div>
         <script src="/assets/reveal.js/dist/reveal.js"></script>
@@ -695,6 +716,11 @@ Too many retries
             const highlight = Reveal.getPlugin('highlight')
             highlight.highlightBlock(slot_machine_el, "c")
             await Reveal.layout()
+            Reveal.on('slidechanged', (event) => {
+                if (event.currentSlide.id === "pio") {
+                    window.open("pio.html", '_blank').focus();
+                }
+            })
         })();
         </script>
     </body>
