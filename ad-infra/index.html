@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <title> Attack/Defence infrastruktura Českého týmu na ECSC </title>
+        <link rel="stylesheet" href="/assets/reveal.js/dist/reveal.css">
+        <link rel="stylesheet" href="/assets/reveal.js/dist/theme/black.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <!--
+        :root {
+            --r-heading-font: 'ISOCPEUR';
+            --r-main-font: 'DINosaur';
+            --r-background-color: #bb0500;
+            --r-heading-color: #ccaa00;
+            --r-link-color: #ccaa00;
+            --r-link-color-dark: #977d00;
+            --r-link-color-hover: #ccaa00;
+        }
+        -->
+        <style>
+        :root {
+            --r-heading-font: 'Montserrat';
+            --r-main-font: 'Montserrat';
+            --r-background-color: #000d1b;
+            --r-heading-color: #fff;
+            --r-link-color: #0d6efd;
+        }
+        .reveal a:hover {
+            text-decoration: underline;
+        }
+        .fragment.disappear {
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: inline-block;
+            trainsition: width 1s ease;
+            white-space: nowrap;
+            width: 7.3em;
+        }
+        .fragment.disappear.visible {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            width: 0 !important;
+        }
+        .attribution {
+            display: inline-block;
+        }
+        .attribution a {
+            color: white;
+            display: block;
+            font-size: small;
+            text-align: right;
+            z-index: -1;
+        }
+        .attribution img {
+            margin-bottom: 0;
+        }
+        .in {
+            color: #00cc33;
+        }
+        .enemy {
+            color: #ff1133;
+        }
+        .out {
+            color: #0070ff;
+        }
+        ul {
+            margin-left: 0 !important;
+        }
+
+
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-background-image="assets/title.jpg" data-background-opacity="0.3">
+                    <h3>Attack/Defence infrastruktura Českého týmu na ECSC</h3>
+                    <p style="font-size: .6em">Jan Černohorský</p>
+                    <p>Slidy najdete na <a href="https://talks.grsc.cz/ad-infra">talks.grsc.cz/ad-infra</a></p>
+                </section>
+                <section>
+                    <h1>ECSC?</h1>
+                    <section>
+                        <p class="fragment"><span class="fragment strike">European Coal and Steel Community</span></p>
+                        <p class="fragment"><span class="fragment strike">Eurovision Cover Song Contest</span></p>
+                        <p class="fragment"><span> European Cybersecurity Challenge</span></p>
+                    </section>
+                    <section>
+                        <p>Organizuje <a href="https://www.enisa.europa.eu/">ENISA</a></p>
+                        <p style="font-size: .5em">Wooo, byrokracie!</p>
+                        <p>Česká kvalifikace je <a style="color: black; background-color: #ffff00; font-family: Arial" href="https://kybersoutez.cz">Kybersoutěž</a></p>
+                        <p>Existuje <a href="https://open.ecsc2024.it/">OpenECSC</a> (každý rok jiné)</p>
+                    </section>
+                    <section data-background-image="assets/czechcyberteam.jpeg"> </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Attack/Defence?</h3>
+                    </section>
+                    <section>
+                        <div style="display: flex; flex-direction: row; justify-content: center;">
+                            <img src='assets/attack-defence-1.svg' width=350>
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto">
+                                <h4>Obránci</h4>
+                                <ul style="font-size: smaller">
+                                    <li>přístup na vulnbox po SSH</li>
+                                    <li>typicky root (ne vždy)</li>
+                                    <li>služby neznají dopředu</li>
+                                </ul>
+                                <p></p>
+                                <h4>Útočníci</h4>
+                                <ul style="font-size: smaller">
+                                    <li>přistupují přímo ke službám</li>
+                                    <li>většinou HTTP nebo Raw TCP</li>
+                                    <li>většinou dostanou zdroják</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div style="display: flex; flex-direction: row; justify-content: center;">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 1em">
+                                <h4>Flagbot</h4>
+                                <ul style="font-size: 0.8em">
+                                    <li>umisťuje vlajky do služeb</li>
+                                    <li>kontroluje jejich přítomnost</li>
+                                    <li>⇒ přiděluje body za <strong>uptime</strong></li>
+                                    <li>chová se jako „normální uživatel“</li>
+                                </ul>
+                                <p></p>
+                                <h4>Útočníci</h4>
+                                <ul style="font-size: smaller">
+                                    <li>kradou vlajky ze služeb</li>
+                                    <li>odevzdávají gameserveru</li>
+                                    <li>⇒ přiděluje body za <strong>útok</strong></li>
+                                </ul>
+                            </div>
+                            <img src='assets/flag-bot.svg' width=350>
+                        </div>
+                    </section>
+                    <section>
+                        <div style="display: flex; flex-direction: row; justify-content: center; font-size: smaller">
+                            <div>
+                                <img src='assets/flag-bot-icon.svg' width=80>
+<pre style="margin: 0 1em">
+<span class="out">&gt;</span> POST /register
+<span class="in" >&lt;</span> 200 OK
+
+<span class="out">&gt;</span> POST /notes/private
+<span class="out">&gt;</span> 
+<span class="out">&gt;</span> ECSC_080A02AF0J07UMOPHNE00KJ48KAE28C=
+<span class="in" >&lt;</span> 201 Created
+<span class="in" >&lt;</span>
+<span class="in" >&lt;</span> New note ID: 12
+
+...
+
+<span class="out">&gt;</span> GET /notes/private
+<span class="in" >&lt;</span> 200 OK
+<span class="in" >&lt;</span>
+<span class="in" >&lt;</span> Note 12: ECSC_080A02AF0J07UMOPHNE00KJ48KAE28C=
+</pre>
+                            </div>
+                            <div>
+                                <img src='assets/attacker-icon.svg' width=80>
+<pre style="margin: 0 1em">
+<span class="enemy">&gt;</span> GET /notes/private/1
+<span class="in"   >&lt;</span> 404 Not Found
+<span class="enemy">&gt;</span> GET /notes/private/2
+<span class="in"   >&lt;</span> 404 Not Found
+
+...
+
+<span class="enemy">&gt;</span> GET /notes/private/11
+<span class="in"   >&lt;</span> 404 Not Found
+<span class="enemy">&gt;</span> GET /notes/private/12
+<span class="in"   >&lt;</span> 200 OK
+<span class="in"   >&lt;</span>
+<span class="in"   >&lt;</span> Note 12: ECSC_080A02AF0J07UMOPHNE00KJ48KAE28C=
+</pre>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div style="display: flex; flex-direction: row; justify-content: center;">
+                            <img src='assets/nat.svg' width=400>
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto">
+                                <h4>Router</h4>
+                                <ul style="font-size: smaller">
+                                    <li>veškerý provoz jde skrz</li>
+                                    <li>NATuje (i na IPv6)</li>
+                                    <li>(resetuje TTL)</li>
+                                    <li>(normalizuje HTTP hlavičky)</li>
+                                </ul>
+                                <p>Vulnbox nesmí poznat,<br> s kým se baví!</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h4>Reálná soutěž</h4>
+                        <p style="font-size: smaller">mnoho týmů, každý útočí a brání zároveň</p>
+                        <p style="font-size: smaller">existuje NOP tým</p>
+                        <img src='assets/network.svg' width=600>
+                    </section>
+                    <section>
+                        <h4>Ticky</h4>
+                        <ul style="font-size: smaller">
+                            <li>Celá hra probíhá v ticích</li>
+                            <li>Typicky 1 – 3 minuty</li>
+                            <li>V jednom ticku</li>
+                            <ul>
+                                <li>flagbot přidá do služby 1 vlajku</li>
+                                <li>flagbot zkontroluje <em>n</em>¹ posledních vlajek</li>
+                            </ul>
+                            <li>Útočníci útočí kdykoliv – častěji to ale nemá smysl</li>
+                        </ul>
+                        <img src="assets/flag-bot-put.svg" class="fragment" style="margin: .5em" width=250>
+                        <img src="assets/flag-bot-get.svg" class="fragment" style="margin: .5em" width=250>
+                        <img src="assets/attacker-get.svg" class="fragment" style="margin: .5em" width=250>
+                        <p style="font-size: .5em">¹ typicky 3 – 6</p>
+                    </section>
+                    <section>
+                        <h4>Skórování</h4>
+                        <ul style="font-size: smaller">
+                            <li>skóre se počítá za každý tick</li>
+                            <ul>
+                                <li><span style="color:green">+</span> body za uptime = <strong>SLA</strong></li>
+                                <ul><li><span style="color:green">up</span>, <span style="color:magenta">faulty</span>, <span style="color:red">down</span>, <span style="color:#06f">check fail</span>, <span style="color:#fb0">recovering</span></li></ul>
+                                <li><span style="color:green">+</span> body za ukradené vlajky = <strong>offence</strong></li>
+                                <li><span style="color:red">-</span> body za ztracené vlajky = <strong>defence</strong></li>
+                            </ul>
+                            <li>dynamické skóre</li>
+                            <ul>
+                                <li>vlajka, kterou kradou všichni je za málo bodů</li>
+                            </ul>
+                        </ul>
+                    </section>
+                    <section data-background-iframe="https://ad.ecsc2024.it/team/czech">
+
+                    </section>
+                    <section>
+                        <h4>Flag IDs</h4>
+                        <ul style="font-size: smaller">
+                            <li>jednoznačně určují, kde je konkrétní vlajka</li>
+                            <ul>
+                                <li>username vlastníka poznámky</li>
+                                <li>ID dokumentu</li>
+                                <li>souřadnice vesmírné lodi</li>
+                                <li>číslo objednávky</li>
+                            </ul>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Grace period</h4>
+                        <p>Čas kdy týmy mají přístup k vulnboxu, ale není otevřená síť</p>
+                        <p>Obvykle ½ – 1 hodina</p>
+                    </section>
+                </section>
+                <section>
+                    <h3>Quirky pravidel</h3>
+                    <section>
+                        Různá CTF mají různá pravidla
+                    </section>
+                    <section>
+                        <h4>Přístup k vulnboxu</h4>
+                        <table>
+                            <tr><th><h5>DIY</h5></th><th><h5 style="white-space: nowrap">Full access</h5></th><th><h5>git only</h5></th></tr>
+                            <tr>
+                                <td style="vertical-align: top; padding-left: 0; padding-right: 0">
+                                    <ul style="font-size: 0.5em">
+                                        <li>orgové připraví image</li>
+                                        <li>týmy si hostují vulnbox</li>
+                                        <li>připojení pomocí VPN</li>
+                                        <li>patche aplikují týmy</li>
+                                        <ul>
+                                            <li>FaustCTF</li>
+                                        </ul>
+                                    </ul>
+                                </td>
+                                <td style="vertical-align: top; padding-left: 0; padding-right: 0">
+                                    <ul style="font-size: 0.5em">
+                                        <li>orgové hostují vulnboxy</li>
+                                        <li>mohou mít přístup</li>
+                                        <li>týmy mají root</li>
+                                        <ul>
+                                            <li>ECSC 2024</li>
+                                            <li>RabaCTF</li>
+                                            <li>ENOWARS (TODO: check)</li>
+                                        </ul>
+                                    </ul>
+                                </td>
+                                <td style="vertical-align: top; padding-left: 0; padding-right: 0">
+                                    <ul style="font-size: 0.5em">
+                                        <li>týmy nemají přístup vůbec</li>
+                                        <li>změny se pushují přes git</li>
+                                        <li>z webUI se deployují commity</li>
+                                        <ul>
+                                            <li>ECSC 2022</li>
+                                            <li>ECSC 2023</li>
+                                        </ul>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <aside class="notes">
+                                <ul>
+                                    <li>ECSC 2022: full git only</li>
+                                    <li>ECSC 2023: userspace access to vulnbox? TODO</li
+                                </ul>
+                            </aside>
+                        </table>
+                    </section>
+                    <section>
+                        <h4>Smí se shazovat?</h4>
+                        <table>
+                            <tr><th><h5>Ano, ale ne DoS</h5></th><th><h5>Ne</h5></th></tr>
+                            <tr>
+                                <td style="vertical-align: top; padding-left: 0; padding-right: 0">
+                                    <ul style="font-size: 0.5em">
+                                        <li>nesmí se zatěžovat služby a síť</li>
+                                        <ul>
+                                            <li>ani zranitelnostmi</li>
+                                        </ul>
+                                        <li>smí se zranitelností shodit služba</li>
+                                        <li>smí se mazat vlajky</li>
+                                        <ul>
+                                            <li>FaustCTF</li>
+                                            <li>ECSC 2023</li>
+                                        </ul>
+                                    </ul>
+                                </td>
+                                <td style="vertical-align: top; padding-left: 0; padding-right: 0">
+                                    <ul style="font-size: 0.5em">
+                                        <li>cizí tým nesmí kazit SLA</li>
+                                        <ul>
+                                            <li>ECSC 2024</li>
+                                            <li>RabaCTF</li>
+                                            <li>ENOWARS (TODO: check)</li>
+                                        </ul>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h4>Dynamické skórování</h4>
+                        <table>
+                            <ul style="font-size: smaller">
+                                <li>vlajka má pevné body, dělí se mezi týmy</li>
+                                <li>vlajka má cenu podle aktuální pozice týmů</li>
+                                <ul>
+                                    <li>ECSC2024</li>
+                                    <li>slabý tým útočí na silný = hodně bodů</li>
+                                </ul>
+                            </ul>
+                        </table>
+                    </section>
+                </section>
+            </div>
+        </div>
+        <script src="/assets/reveal.js/dist/reveal.js"></script>
+        <script src="/assets/reveal.js/dist/"></script>
+        <script src="/assets/reveal.js/plugin/notes/notes.js"></script>
+        <link rel="stylesheet" href="/assets/reveal.js/plugin/highlight/monokai.css" />
+        <script src="/assets/reveal.js/plugin/highlight/highlight.js"></script>
+        <script>
+        (async function () {
+            await Reveal.initialize({
+                controlsTutorial: false,
+                controlsLayout: 'edges',
+                hash: true,
+                plugins: [RevealNotes, RevealHighlight],
+
+
+                dependencies: [
+                    { src: '/assets/reveal.js/plugin/math/math.js', async: true }
+                ]
+            });
+            await Reveal.layout()
+        })();
+        </script>
+    </body>
+</html>
