@@ -314,7 +314,7 @@ print(requests.put('http://10.10.0.1:8080/flags', headers={
                                         <ul>
                                             <li>ECSC 2024</li>
                                             <li>RabaCTF</li>
-                                            <li>ENOWARS (TODO: check)</li>
+                                            <li>ENOWARS</li>
                                         </ul>
                                     </ul>
                                 </td>
@@ -332,8 +332,8 @@ print(requests.put('http://10.10.0.1:8080/flags', headers={
                             </tr>
                             <aside class="notes">
                                 <ul>
-                                    <li>ECSC 2022: full git only</li>
-                                    <li>ECSC 2023: userspace access to vulnbox? TODO</li
+                                    <li>ECSC 2022</li>
+                                    <li>ECSC 2023</li
                                 </ul>
                             </aside>
                         </table>
@@ -354,6 +354,7 @@ print(requests.put('http://10.10.0.1:8080/flags', headers={
                                         <ul>
                                             <li>FaustCTF</li>
                                             <li>ECSC 2023</li>
+                                            <li>ENOWARS (možná?)</li>
                                         </ul>
                                     </ul>
                                 </td>
@@ -363,7 +364,6 @@ print(requests.put('http://10.10.0.1:8080/flags', headers={
                                         <ul>
                                             <li>ECSC 2024</li>
                                             <li>RabaCTF</li>
-                                            <li>ENOWARS (TODO: check)</li>
                                         </ul>
                                     </ul>
                                 </td>
@@ -414,8 +414,8 @@ print(requests.put('http://10.10.0.1:8080/flags', headers={
                             <li>velký pull request od CCT 🇨🇿, primárně Tonda</li>
                         </ul>
                     </section>
-                    <section>
-                        TODO: Tulip iframe here
+                    <section data-background-iframe="http://localhost:3000/flow/00056f9d-e13e-81f4-80ee-7d075132a6e9?start=1530021278391&end=1530118457463" data-background-color="white">
+
                     </section>
                     <section>
                         <h3>DestructiveFarm <img src="assets/df.png" style="height: 1em; vertical-align: center; margin: 0"></h3>
@@ -431,10 +431,11 @@ print(requests.put('http://10.10.0.1:8080/flags', headers={
                             <li><strong>distribuované</strong> spouštění exploitů</li>
                             <li>původně Ruského týmu Destructive Voice</li>
                             <li>většina týmů má vlastní, silně přepsanou variantu</li>
+                            <li>u nás &gt; 90 % 🇨🇿</li>
                         </ul>
                     </section>
-                    <section>
-                        TODO: DF iframe here
+                    <section data-background-iframe="http://localhost:5000">
+
                     </section>
                     <section>
                         <h4>Exploit runner</h4>
@@ -453,6 +454,7 @@ print(requests.put('http://10.10.0.1:8080/flags', headers={
                         <h4>Runner v1</h4>
                         <ul style="font-size: smaller">
                             <li>per-team</li>
+                            <li>od 🇨🇿, původní DF pouštělo jednu instanci</li>
                             <li>JSON v <code>argv</code>, vlajky stdout</li>
                         </ul>
                         <pre style="font-size: .3em"><code class="python">
@@ -560,6 +562,41 @@ if __name__ == "__main__":
                         </ul>
                     </section>
                     <section>
+                        <h4>anipicu-rs</h4>
+                        <ul style="font-size: smaller">
+                            <li>staticky zkompilovaná filtrující TCP reverse proxy</li>
+                            <li>dá se zabalit do neznámého docker kontejneru</li>
+                        </ul>
+                        <pre style="font-size: .25em; transform: scale(1.2); top: 2em;"><code class="plaintext" data-line-numbers="2-3|10|11,8|12|16-19|20-23">
+$ ./anipicu-rs help
+This is a self-modifying binary. Any config option you set will be reflected into the binary.
+See example commands below. Any other command will start the proxy.
+
+./anipicu-rs help                       (Show help)
+./anipicu-rs config                     (Show config)
+./anipicu-rs exec ./cmd arg1 arg2       (Set command to execute in the background)
+./anipicu-rs exec                       (Clear exec command)
+./anipicu-rs bind 0.0.0.0:5000          (Set address to bind to, required)
+./anipicu-rs forward 127.0.0.1:6000     (Set address to forward to, required if forward-exec is not set)
+./anipicu-rs forward-exec ./cmd arg1    (Set command to spawn and forward to, required if forward is not set)
+./anipicu-rs message NE                 (Set shutdown message)
+./anipicu-rs linger                     (Toggles leaking of connections)
+./anipicu-rs unpack-target /meme        (Set target path to unpack archive)
+./anipicu-rs whitelist-add 'y[eE][eE]t' (Add regex to whitelist)
+./anipicu-rs whitelist-remove 3         (Remove regex at index from whitelist)
+./anipicu-rs blacklist-add 'y[eE][eE]t' (Add regex to blacklist)
+./anipicu-rs blacklist-remove 3         (Remove regex at index from blacklist)
+./anipicu-rs ip-whitelist-add 1.1.1.1   (Add address to whitelist)
+./anipicu-rs ip-whitelist-remove 3      (Remove address at index from whitelist)
+./anipicu-rs ip-blacklist-add 1.1.1.1   (Add address to blacklist)
+./anipicu-rs ip-blacklist-remove 3      (Remove address at index from blacklist)
+./anipicu-rs tar-add-file in/tar ./src  (Add file to archive)
+./anipicu-rs tar-add-dir in/tar ./src   (Add recursive directory to archive)
+./anipicu-rs tar-remove in/tar          (Remove file or directory from archive)
+./anipicu-rs reset                      (Clear all storage and restore defaults)
+                        </code></pre>
+                    </section>
+                    <section>
                         <h4>Statek <img src="assets/statek.svg" style="height: 1em; margin: 0"></h4>
                         <ul style="font-size: 0.7em">
                             <li>sbírá data z různých zdrojů</li>
@@ -576,13 +613,86 @@ if __name__ == "__main__":
                             <li>zobrazuje v Grafaně</li>
                         </ul>
                     </section>
+                    <section>
+                        TODO: statek iframe
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h4>Vulnbox</h4>
+                        <ul style="font-size: smaller">
+                            <li>nutné udržovat pořádek, neinstalovat <i>neofetch</i></li>
+                            <li>infrastruktura je extrémně minimalistická</li>
+                            <li>musí běžet na různých systémech</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Git</h4>
+                        <pre style="font-size: .25em; transform: scale(1.2); top: 2em;"><code class="sh" data-line-numbers="|15-18">
+CLONE_HOST=${CLONE_HOST-"10.60.10.1"} # with square brackets if IPv6
+CLONE_USER=${CLONE_USER-"root"}
+
+if [ -z "$(git config --global init.defaultBranch)" ]; then
+    git config --global init.defaultBranch master
+fi
+
+if [ -z "$(git config --global user.email)" ]; then
+    git config --global user.email "${CLONE_USER}@${CLONE_HOST}"
+    git config --global user.name "Vulnbox"
+fi
+
+for repo in "$@"; do
+    git init "$repo"
+    (cd "$repo" &amp;&amp; git config --local receive.denyCurrentBranch updateInstead)
+    (cd "$repo" &amp;&amp; git config --local receive.denyNonFastForwards true)
+    (cd "$repo" &amp;&amp; git config --local receive.denyDeletes true)
+done
+
+for repo in "$@"; do
+    echo "git clone \"$CLONE_USER@$CLONE_HOST\":$(realpath "$repo")"
+done
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h4>Packet capture</h4>
+                        <pre style="font-size: .25em; transform: scale(1.2); top: 2em;"><code class="sh" data-line-numbers="|9-15|18-20|22-23">
+URL=${URL-"https://nop:nop@collector.budkyber.cz"}
+INTERFACE=${INTERFACE-"eth0"}
+PREFIX=${PREFIX-$(hostname)}
+
+mkdir -p /tmp/tcpdump
+chmod 777 /tmp/tcpdump
+
+echo '#!/usr/bin/env bash
+set -e
+
+curl -XPOST -F file=@"$1" -F prefix="'"$PREFIX"'" "'"$URL"'"
+rm -v "$1"
+' >/tmp/tcpdump/upload.sh
+chmod +x /tmp/tcpdump/upload.sh
+
+
+for pcap in /tmp/tcpdump/pcap-*; do
+	/tmp/tcpdump/upload.sh "$pcap"
+done
+
+tcpdump -ni "$INTERFACE" -G15 -C 1000 -w /tmp/tcpdump/pcap-%s.pcap -z /tmp/tcpdump/upload.sh \
+        not port 22 and not port 443 and not port 6256
+                        </code></pre>
+                    </section>
                 </section>
                 <section>
                     Join us!
                 </section>
                 <section>
                     <h4>Odkazy</h4>
-                    ...
+                    <ul style="font-size: smaller">
+                        <li>Slidy: <a href="https://talks.grsc.cz/ad-infra">talks.grsc.cz/ad-infra</a></li>
+                        <li><a style="color: black; background-color: #ffff00; font-family: Arial" href="https://kybersoutez.cz">Kybersoutěž</a></li>
+                        <li><a href="https://github.com/CzechCyberTeam">CCT na GitHubu</a></li>
+                        <li><a href="https://ad.ecsc2024.it/rules">Pravidla ECSC2024 A/D</a> + Scoreboard, stats</li>
+                        <li><a href="https://github.com/ECSC2024">GitHub ECSC2024</a> – Úlohy, služby, more stats</li>
+                    </ul>
                 </section>
 
             </div>
