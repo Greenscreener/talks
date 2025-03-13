@@ -68,6 +68,13 @@
         ul {
             margin-left: 0 !important;
         }
+        a.fn {
+            font-variant-position: super;
+            counter-increment: fn;
+        }
+        a.fn::after {
+            content: "[↗]";
+        }
 
 
         </style>
@@ -89,7 +96,7 @@
                     </section>
                     <section>
                         <p>Organizuje <a href="https://www.enisa.europa.eu/">ENISA</a></p>
-                        <p style="font-size: .5em">Wooo, byrokracie!</p>
+                        <p>Desetičlenné týmy do 26 let (min. 5 do 20)</p>
                         <p>Česká kvalifikace je <a style="color: black; background-color: #ffff00; font-family: Arial" href="https://kybersoutez.cz">Kybersoutěž</a></p>
                         <p>Existuje <a href="https://open.ecsc2024.it/">OpenECSC</a> (každý rok jiné)</p>
                     </section>
@@ -241,6 +248,26 @@
 
                     </section>
                     <section>
+                        <h4>Flag submission</h4>
+                        <ul style="font-size: smaller">
+                            <li>útočníci musí útočit pořád</li>
+                            <li>FAUST: 1 vlajka × 8 služeb × ~100 týmů / 3 minuty</li>
+                            <li>ECSC 2024: 1 vlajka × 8 služeb × 38 týmů / 2 minuty</li>
+                            <li>jednoduché HTTP/TCP</li>
+                            <pre><code class="python" style="font-size: 0.8em;">
+import requests
+
+TEAM_TOKEN = '4242424242424242'
+
+flags = ['AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=', 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=']
+
+print(requests.put('http://10.10.0.1:8080/flags', headers={
+    'X-Team-Token': TEAM_TOKEN
+}, json=flags).text)
+                            </code></pre>
+                        </ul>
+                    </section>
+                    <section>
                         <h4>Flag IDs</h4>
                         <ul style="font-size: smaller">
                             <li>jednoznačně určují, kde je konkrétní vlajka</li>
@@ -350,13 +377,214 @@
                                 <li>vlajka má pevné body, dělí se mezi týmy</li>
                                 <li>vlajka má cenu podle aktuální pozice týmů</li>
                                 <ul>
-                                    <li>ECSC2024</li>
+                                    <li>ECSC 2024</li>
                                     <li>slabý tým útočí na silný = hodně bodů</li>
                                 </ul>
                             </ul>
                         </table>
                     </section>
                 </section>
+                <section>
+                    <section>
+                        <h4 class="fragment strike">Servicebox</h4>
+                        <h4 class="fragment">Buďkyber!</h4>
+                    </section>
+                    <section>
+                        <h4>Buďkyber</h4>
+                        <ul style="font-size: smaller">
+                            <li>(virtuální) server</li>
+                            <li>hostuje různé služby, které tým potřebuje</li>
+                            <li>je taky připojený ve VPN (jako hráč)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Tulip 🌷<a href="https://github.com/OpenAttackDefenseTools/tulip" class="fn"></a></h4>
+                        <ul style="font-size: smaller">
+                            <li><strong>flow-based</strong> network monitoring</li>
+                            <li>z vulnboxu se posílají <code>.pcap</code>y</li>
+                            <li>ty se skládají a indexují do databáze</li>
+                            <li>webové rozhraní</li>
+                            <ul>
+                                <li>vyhledávání</li>
+                                <li>sdílení</li>
+                                <li>grafy</li>
+                                <li>copy as</li>
+                            </ul>
+                            <li>původně TeamEU (rdj 🇳🇱, Bazumo 🇨🇭, Šimon 🇨🇿)</li>
+                            <li>velký pull request od CCT 🇨🇿, primárně Tonda</li>
+                        </ul>
+                    </section>
+                    <section>
+                        TODO: Tulip iframe here
+                    </section>
+                    <section>
+                        <h3>DestructiveFarm <img src="assets/df.png" style="height: 1em; vertical-align: center; margin: 0"></h3>
+                        <ul style="font-size: smaller">
+                            <li>exploit management</li>
+                            <ul>
+                                <li>rozesílá flagIDs</li>
+                                <li>sbírá vlajky</li>
+                                <li>odesílá gameserveru</li>
+                                <li>zaznamenává úspěšnost</li>
+                                <li>řídí, na koho se útočí</li>
+                            </ul>
+                            <li><strong>distribuované</strong> spouštění exploitů</li>
+                            <li>původně Ruského týmu Destructive Voice</li>
+                            <li>většina týmů má vlastní, silně přepsanou variantu</li>
+                        </ul>
+                    </section>
+                    <section>
+                        TODO: DF iframe here
+                    </section>
+                    <section>
+                        <h4>Exploit runner</h4>
+                        <ul style="font-size: smaller">
+                            <li>klientská knihovna pro DF</li>
+                            <li>hráč napíše jednoduchý skript na kradení vlajky = <strong>exploit</strong></li>
+                            <li>runner:</li>
+                            <ul>
+                                <li>řeší komunikaci s DF</li>
+                                <li>spustí mnoho instancí exploitu paralelně</li>
+                                <li>extrahuje vlajky z std. out</li>
+                            </ul>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Runner v1</h4>
+                        <ul style="font-size: smaller">
+                            <li>per-team</li>
+                            <li>JSON v <code>argv</code>, vlajky stdout</li>
+                        </ul>
+                        <pre style="font-size: .3em"><code class="python">
+target = json.loads(sys.argv[1])
+team_id = target["id"]
+flag_ids = target.get("flag_ids", {})
+time = target.get("time")
+
+# Example of flag_ids: {
+#   'service-1': [ 'flag-id-1', 'flag-id-2' ]
+#   'service-2': [ 'flag-id-3', 'flag-id-4' ]
+# }
+
+flag_ids = flag_ids['service-1']
+
+host = f"10.10.{team_id}.3"
+
+# Anything printed to stdout or stderr is regex matched to find valid flags
+# Flags are extracted and sent to the server
+# Non-flag output is just printed on the client
+print(f"Attacking {team_id=} at {host=}")
+
+for flag_id in flag_ids:
+    r = requests.get(f"http://{host}:3000/users/{flag_id}").text
+    print(r)
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h4>Runner v2</h4>
+                        <ul style="font-size: smaller">
+                            <li>per-flagID</li>
+                            <li>server poskytuje host info</li>
+                        </ul>
+                        <pre style="font-size: .3em;"><code class="python">
+info = json.loads(sys.argv[1]) if len(sys.argv) &gt; 1 else {}
+
+team_id = info.get("team_id")
+service = info.get("service")
+# Note that this could be `None` if DF doesn't provide host info
+host = info.get("host")
+# Flag id is present if the script is set to run per flag id
+flag_id = info.get("flag_id")
+
+# Anything printed to stdout or stderr is regex matched to find valid flags
+# Flags are extracted and sent to the server
+# Non-flag output is just printed out on the client
+print(f"Attacking {service=} of {team_id=} at {host=} with {flag_id=}")
+
+# Example: Generating some flags
+# NOTE: These example flags will likely not be matched by your flag regex
+
+r = requests.get(f"http://{host}:3000/users/{flag_id}").text
+print(r)
+                        </code></pre>
+                        <ul style="font-size: .7em;" class="fragment">
+                            <li>~10 flagIDs × 100 týmů = 1000 exploitů běžících paralelně</li>
+                            <li>typicky v pythonu ⇒ 1000 běžicích interpretů</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Runner v3</h4>
+                        <pre style="font-size: .25em; transform: scale(1.2); top: 2em;"><code class="python">
+from exploitlib import *
+
+# class Team(id: str, name: str | None, display: str, metadata: dict[str, Any], services: dict[str, Service])
+# class Service(id: str, name: str | None, host: str | None, metadata: dict[str, Any], flag_ids: list[FlagId])
+# class FlagId(id: int, content: str, service: Service, team: Team, info: dict[str, Any], received: datetime, has_flag: bool)
+
+class Exploit(ExploitBase):
+    def process_tick(self) -&gt; None:
+        # This is called exacly once per attack_period
+        # This is the first method to be called
+        # State (stuff assigned to self) created here will be usable in process_team and process_flag_id
+        print("Exploit.process_tick")
+
+    def process_team(self, team: Team, service: Service | None) -&gt; None:
+        # This is called once for each team every attack_period
+        # This will not be execute in --single-instance mode
+        # State (stuff assigned to self) created here will be usable in process_flag_id
+        print(f"Exploit.process_team: {team.display}, {service.display if service else None}")
+
+    def process_flag_id(self, team: Team, service: Service, flag_id: FlagId) -&gt; None:
+        # This is called once for each flag id of every team every attack_period
+        # This will not be execute in --single-instance and --per-team modes
+        # State (stuff assigned to self) created here will be usable only here
+        print(f"Exploit.process_flag_id: {team.display}, {service.display}, {flag_id.id}")
+
+if __name__ == "__main__":
+    main(Exploit)
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h4>Rozdělování času exploitům</h4>
+                        <ul style="font-size: smaller">
+                            <li>některé exploity jen komunikují po síti</li>
+                            <li>→ služby mohou leakovat spojení</li>
+                            <li>jiné exploity bruteforcují krypto</li>
+                            <li>→ potřebují běžet dlouho</li>
+                        </ul>
+                        <p>↓</p>
+                        <ul style="font-size: smaller" class="fragment">
+                            <li>vlajky mají expiraci</li>
+                            <li>jak <span class="fragment strike">férově</span> rozdělit čas mezi exploity?</li>
+                            <li class="fragment">abychom získali nejvíc bodů?</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Statek <img src="assets/statek.svg" style="height: 1em; margin: 0"></h4>
+                        <ul style="font-size: 0.7em">
+                            <li>sbírá data z různých zdrojů</li>
+                            <ul>
+                                <li>DF</li>
+                                <li>Scoreboard</li>
+                            </ul>
+                            <li>dopočítává užitečné metriky</li>
+                            <ul>
+                                <li>jaké týmy kradou vlajky konkrétní služby?</li>
+                                <li>jaké týmy neztrácí vlajky?</li>
+                                <li>ztrácime víc bodů za defense než dostáváme za SLA?</li>
+                            </ul>
+                            <li>zobrazuje v Grafaně</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    Join us!
+                </section>
+                <section>
+                    <h4>Odkazy</h4>
+                    ...
+                </section>
+
             </div>
         </div>
         <script src="/assets/reveal.js/dist/reveal.js"></script>
