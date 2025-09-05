@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title> Formatinator: An extensible publishing system </title>
+        <link rel="stylesheet" href="/assets/reveal.js/dist/reveal.css">
+        <link rel="stylesheet" href="/assets/reveal.js/dist/theme/white.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://lalten.github.io/lmweb/style/latinmodern-mono.css" type="text/css" charset="utf-8" />
+        <!--
+        :root {
+            --r-heading-font: 'ISOCPEUR';
+            --r-main-font: 'DINosaur';
+            --r-background-color: #bb0500;
+            --r-heading-color: #ccaa00;
+            --r-link-color: #ccaa00;
+            --r-link-color-dark: #977d00;
+            --r-link-color-hover: #ccaa00;
+        }
+        -->
+        <style>
+        :root {
+            --r-heading-font: 'Latin Modern Sans';
+            --r-heading-text-transform: none;
+            --r-main-font: 'Latin Modern Roman';
+            --r-code-font: 'Latin Modern Mono';
+        }
+        .reveal a:hover {
+            text-decoration: underline;
+        }
+        .fragment.disappear {
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: inline-block;
+            trainsition: width 1s ease;
+            white-space: nowrap;
+            width: 7.3em;
+        }
+        .fragment.disappear.visible {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            width: 0 !important;
+        }
+        .attribution {
+            display: inline-block;
+        }
+        .attribution a {
+            color: white;
+            display: block;
+            font-size: small;
+            text-align: right;
+            z-index: -1;
+        }
+        .attribution img {
+            margin-bottom: 0;
+        }
+        ul {
+            margin-left: 0 !important;
+        }
+        a.fn {
+            font-variant-position: super;
+            counter-increment: fn;
+        }
+        a.fn::after {
+            content: "[↗]";
+        }
+
+
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h3>Formatinator:</h3>
+                    <h4>An extensible publishing system</h4>
+                    <hr>
+                    <h4>Jan Černohorský</h4>
+                </section>
+                <section>
+                    <section>
+                        <h3>What is Formatinator?</h3>
+                    </section>
+                    <section>
+                        <img src="assets/md to ast.svg">
+                    </section>
+                    <section>
+                        <img src="assets/ast to ast.svg">
+                    </section>
+                    <section>
+                        <img src="assets/ast to out.svg">
+                    </section>
+                </section>
+                <section>
+                    <h3>Goals</h3>
+                    <ul>
+                        <li class="fragment">Capable markup language</li>
+                        <ul>
+                            <li class="fragment">Common elements</li>
+                            <li class="fragment">Arbitrary functions</li>
+                        </ul>
+                        <li class="fragment">Modularity</li>
+                        <li class="fragment">Extensibility</li>
+                    </ul>
+                </section>
+                <section>
+                    <section>
+                        <h3>Markdown</h3>
+                        <pre><code data-trim>
+                            # Hello world
+
+                            This is a simple document with **bold**
+                            and *italic* text, `code` snippets,
+                            [links](https://example.com) and
+
+                            - lists
+                            - of
+                            - things
+
+                            1. even
+                            2. ordered
+                        </code></pre>
+                    </section>
+                    <section>
+                        <p>
+                            <q>Any sequence of characters is a valid CommonMark document.</q>
+                        </p>
+                        <br>
+                        <code class="fragment">_**_**</code>
+                        <br>
+                        <br>
+                        <p class="fragment">
+                            In Formatinator, such ambiguous syntax is invalid.
+                        </p>
+                    </section>
+                    <section>
+                        <div style="display: flex">
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                *Emphasized* and
+                                **strongly emphasized** text.
+                            </code></pre>
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                _Emphasized_ and
+                                __strongly emphasized__ text.
+                            </code></pre>
+                        </div>
+                        <div style="display: flex">
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                Level 1 Setext heading
+                                ----------------------
+                                Level 2 Setext heading
+                                ======================
+                            </code></pre>
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                # Level 1 ATX heading
+                                ## Level 2 ATX heading
+                            </code></pre>
+                        </div>
+                        <div style="display: flex">
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                - a list
+                                - with dashes
+                            </code></pre>
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                * a list
+                                * with asterisks
+                            </code></pre>
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                + a list
+                                + with pluses
+                            </code></pre>
+                        </div>
+                        <div style="display: flex">
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                1. One
+                                2. Two
+                                3. Three
+                            </code></pre>
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                2. Two
+                                3. Three
+                                4. Four
+                            </code></pre>
+                            <pre style="margin: 1em 0.5em;"><code class="language-markdown" data-trim>
+                                1. One
+                                4. Four
+                                5. Five
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div style="display: flex">
+                            <pre style=""><code class="language-markdown" data-trim>
+                                _Emphasized_ and
+                                **strongly emphasized** text.
+                            </code></pre>
+                        </div>
+                        <div style="display: flex">
+                            <pre style=""><code class="language-markdown" data-trim>
+                                # Level 1 heading
+                                ## Level 2 heading
+                            </code></pre>
+                        </div>
+                        <div style="display: flex">
+                            <pre style=""><code class="language-markdown" data-trim>
+                                * a list
+                                * with asterisks
+                            </code></pre>
+                        </div>
+                        <div style="display: flex">
+                            <pre style=""><code class="language-markdown" data-trim>
+                                #. One
+                                #. Two
+                                #. Three
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div style="display: flex">
+                            <pre><code class="language-markdown" data-trim>
+                                @variable=Bold(Word("Hi!"))
+
+                                Some text
+
+                                @variable
+                            </code></pre>
+                            <div style="width: 90%; font-size: .7em">
+                                <p>Some text</p>
+
+                                <p><strong>Hi!</strong></p>
+                            </div>
+                        </div>
+                        <div style="display: flex">
+                            <pre><code class="language-markdown" data-trim>
+                                @add(1, 2)
+
+                                @color("red", content: [Some text])
+
+                                @sum((1, 2, 3, 4, 5))
+
+                                @matrix((1, 2, 3; 4, 5, 6))
+
+                                @func({a: 1, b: 2, c})
+                            </code></pre>
+                            <div style="width: 90%; font-size: .7em">
+                                <p><code>3</code></p>
+                                <p><span style="color: red">Some text</span></p>
+                                <p><code>15</code></p>
+                                <table><tr><td style="border-bottom: 0">1</td><td style="border-bottom: 0">2</td><td style="border-bottom: 0">3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr></table>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex">
+                            <pre><code class="language-markdown" data-trim>
+                                @repeat(2, content: [_Hello_ world!])
+
+                                @repeat(2)[_Hello_ world!]
+
+                                @double[_Hello_ world!]
+                            </code></pre>
+                            <div style="width: 90%; font-size: .7em">
+                                <p><em>Hello</em> world! <em>Hello</em> world!</p>
+                                <p><em>Hello</em> world! <em>Hello</em> world!</p>
+                                <p><em>Hello</em> world! <em>Hello</em> world!</p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Mechanisms of extension</h3>
+                        <ul>
+                            <li>User-supplied functions</li>
+                            <li>User-supplied transformations</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <pre><code class="language-python" data-trim>
+                            def foxes_are_dogs(node: Node , **_) -> Sequence[Node]:
+                                    if isinstance(node, Word) and node.text == "fox":
+                                return [Word("dog", loc=node.loc)]
+                                    else:
+                                return [node.transform_children(foxes_are_dogs)]
+                        </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Implementation</h3>
+                    </section>
+                    <section>
+                        <h3>Tree-Sitter</h3>
+                        <ul>
+                            <li>Parser generator</li>
+                            <li>Reads context-free grammar</li>
+                            <li>Generates C parser with bindings</li>
+                            <li>GLR parser with context-aware lexing</li>
+                            <li>Additional external lexer written in C</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Internal representation</h3>
+                        <ul>
+                            <li>Abstract Syntax Tree</li>
+                            <li><em>Path copying</em> algorithm preserves <br> results of transformations</li>
+                            <li>Base types for nodes</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Transformations</h3>
+                        <ul>
+                            <li>Functions with right signature</li>
+                            <li>or classes with overloaded <code>__call__</code></li>
+                            <li>output generation implemented<br> with a transformation</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Test suite</h3>
+                        <ul>
+                            <li>Corpus-based</li>
+                            <li>Self-updating</li>
+                            <li>100+ test cases</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Future work</h3>
+                        <ul>
+                            <li>Standard library</li>
+                            <li>Global identifiers</li>
+                            <li>Tools for editors</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <h3>Goals</h3>
+                    <ul>
+                        <li>Capable markup language</li>
+                        <ul>
+                            <li>Common elements</li>
+                            <li>Arbitrary functions</li>
+                        </ul>
+                        <li>Modularity</li>
+                        <li>Extensibility</li>
+                    </ul>
+                </section>
+                <section>
+
+                </section>
+            </div>
+        </div>
+        <script src="/assets/reveal.js/dist/reveal.js"></script>
+        <script src="/assets/reveal.js/plugin/notes/notes.js"></script>
+        <link rel="stylesheet" href="/assets/highlight.js/src/styles/mono-blue.css" />
+        <script src="/assets/reveal.js/plugin/highlight/highlight.js"></script>
+        <script>
+        (async function () {
+            await Reveal.initialize({
+                controlsTutorial: false,
+                controlsLayout: 'edges',
+                hash: true,
+                plugins: [RevealNotes, RevealHighlight],
+
+
+                dependencies: [
+                    { src: '/assets/reveal.js/plugin/math/math.js', async: true }
+                ]
+            });
+            await Reveal.layout()
+        })();
+        </script>
+    </body>
+</html>

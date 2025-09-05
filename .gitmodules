@@ -7,3 +7,6 @@
 [submodule "passwords-ksp"]
 	path = passwords-ksp
 	url = https://gitlab.com/patek-devs/passwords
+[submodule "assets/highlight.js"]
+	path = assets/highlight.js
+	url = https://github.com/highlightjs/highlight.js
